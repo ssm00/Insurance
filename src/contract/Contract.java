@@ -19,7 +19,14 @@ public class Contract {
 	}
 
 	public boolean checkExpired(){
-		return false;
+		int result = expirationDate.compareTo(new Date());
+
+		if(result <= 0){
+			return false; // 만료안됨
+		}
+		else{
+			return true;// 만료됨
+		}
 	}
 
 	public boolean updateRenuewalStatus(){
