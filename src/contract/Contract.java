@@ -7,7 +7,6 @@ import java.util.Date;
 
 
 public class Contract {
-
 	private String coverageDetails;
 	private Date expirationDate;
 	private int insuraceID;
