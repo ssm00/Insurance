@@ -4,9 +4,9 @@ import java.util.ArrayList;
 
 public interface CustomerList {
 
-    public boolean add(Customer customer);
+    public boolean add();
 
-    public boolean delete(Customer customer);
+    public boolean delete();
 
     public ArrayList<Customer> retrieve();
 

@@ -6,9 +6,9 @@ import java.util.ArrayList;
 
 public interface SalesList {
 
-	public boolean add(Sale sale);
+	public boolean add();
 
-	public boolean delete(Sale sale);
+	public boolean delete();
 
 	public ArrayList<Sale> retrieve();
 

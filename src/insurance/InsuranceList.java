@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public interface InsuranceList {
 
-	public boolean add(Insurance insurance);
+	public boolean add();
 
 	public boolean delete();
 
