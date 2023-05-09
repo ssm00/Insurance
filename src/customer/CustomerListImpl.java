@@ -8,20 +8,22 @@ public class CustomerListImpl implements CustomerList{
     private ArrayList<Customer> customerList;
 
     public CustomerListImpl(){
-
+        customerList = new ArrayList<Customer>();
     }
 
 
-    public boolean add(){
-        return false;
+    public boolean add(Customer customer){
+        customerList.add(customer);
+        return true;
     }
 
-    public boolean delete(){
-        return false;
+    public boolean delete(Customer customer){
+        customerList.remove(customer);
+        return true;
     }
 
     public ArrayList<Customer> retrieve(){
-        return null;
+        return customerList;
     }
 
     public boolean update(){
