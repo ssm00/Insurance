@@ -5,9 +5,9 @@ import java.util.ArrayList;
 
 public interface ContractList {
 
-	public boolean add();
+	public boolean add(Contract contract);
 
-	public boolean delete();
+	public boolean delete(Contract contract);
 
 	public ArrayList<Contract> retrieve();
 
