@@ -1,5 +1,6 @@
 package UI;
 
+import compensation.CompensationListImpl;
 import contract.Contract;
 import contract.ContractListImpl;
 import customer.Customer;
@@ -13,6 +14,7 @@ import uw.LossRate;
 import uw.UW;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.rmi.NotBoundException;
@@ -31,6 +33,8 @@ public class ISMain {
     ArrayList<Contract> contractList;
     SalesListImpl salesListImpl;
     ArrayList<Sale> saleList;
+    CompensationListImpl compensationList;
+
     public ISMain() {
         customerListImpl = new CustomerListImpl();
         customerListImpl.add(new Customer("zxcvbn","김범준","용인",24,"남자","무직"));
@@ -46,6 +50,8 @@ public class ISMain {
         salesListImpl.add(new Sale("wertyy","qwerty",12551, new Date()));
         salesListImpl.add(new Sale("zxcvbn","asdfgh",12121, new Date()));
         saleList = salesListImpl.retrieve();
+
+        compensationList = new CompensationListImpl();
     }
 
     public static void main(String[] args) throws NotBoundException, IOException {
@@ -628,6 +634,45 @@ public class ISMain {
 
         System.out.println("계산된 손해액 : " + lossRate.getLossRate());
 
+    }
+
+    /**
+     * -------------------------------------------------------------------------------------
+     */
+
+    // private void terminate(BufferedReader userInput) throws IOException {
+    //     System.out.println("-----Compensation Evaluation-----");
+    // 	System.out.print("Treminate "); String input = userInput.readLine().trim();
+    //     compensationList.terminate(input);
+    // }
+
+    private void remit(BufferedReader userInput) throws IOException {
+        System.out.println("-----Remit-----");
+        System.out.print("Total: "); String input = userInput.readLine().trim();
+        compensationList.remit(input);
+    }
+
+
+    private void examine(BufferedReader userInput) throws IOException {
+        System.out.println("-----Compensation Examination-----");
+        System.out.print("Evaluation: "); String input = userInput.readLine().trim();
+        compensationList.examine(input);
+    }
+
+
+    private void authorize(BufferedReader userInput) throws IOException {
+        System.out.println("-----Compensation Authorization-----");
+        System.out.print("Authorize? Y/N: "); String input = userInput.readLine().trim();
+        compensationList.authorize(input);
+    }
+
+
+    private void printMenu() {
+        System.out.println("*****************MENU*****************");
+        System.out.println("1. Authorize Compensation");
+        System.out.println("2. Examine Compensation");
+        System.out.println("3. Remit Compensation");
+        System.out.println("4. Terminate Compensation");
     }
 
     private
