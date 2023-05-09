@@ -17,8 +17,10 @@ public class Customer {
 		this.job = job;
 	}
 
-	public void finalize() throws Throwable {
-
-	}
-
+	public String getCustomerID(){return customerID;}
+	public String getCustomerName(){return customerName;}
+	public String getAddress(){return address;}
+	public int getAge(){return age;}
+	public String getGender(){return gender;}
+	public String getJob(){return job;}
 }

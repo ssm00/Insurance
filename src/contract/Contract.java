@@ -18,19 +18,27 @@ public class Contract {
 		this.insuranceFee = insuranceFee;
 		this.expirationDate = expirationDate;
 		this.coverageDetails = coverageDetails;
+	}
 
+	public int getInsuraceID(){
+		return insuraceID;
+	}
+	public int getInsuranceFee(){
+		return insuranceFee;
+	}
+	public Date getExpirationDate(){
+		return expirationDate;
+	}
+	public String getCoverageDetails(){
+		return coverageDetails;
 	}
 
 	public boolean checkExpired(){
 		int result = expirationDate.compareTo(new Date());
-
-
-		if(result <= 0){
-			isExpired = false; // 만료 안됨
-		}
-		else{
-			isExpired = true; // 만료됨
-		}
+		// 만료됨
+		if(result <= 0){isExpired = true;}
+		// 만료 안됨
+		else{isExpired = false;}
 		return isExpired;
 	}
 
