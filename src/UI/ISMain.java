@@ -378,6 +378,7 @@ public class ISMain {
         System.out.println("1. 고객 정보 수정");
         System.out.println("x. 나가기");
         String sChoice = objectReader.readLine().trim();
+        int a;
         try{
             switch(sChoice){
                 case "1":
