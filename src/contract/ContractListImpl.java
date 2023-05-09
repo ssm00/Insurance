@@ -7,25 +7,23 @@ public class ContractListImpl implements ContractList {
 	private ArrayList<Contract> contractList;
 
 	public ContractListImpl(){
-		contractList = new ArrayList<Contract>();
+
 	}
 
 	public void finalize() throws Throwable {
 
 	}
 
-	public boolean add(Contract contract){
-		contractList.add(contract);
+	public boolean add(){
 		return false;
 	}
 
-	public boolean delete(Contract contract){
-		contractList.remove(contract);
+	public boolean delete(){
 		return false;
 	}
 
 	public ArrayList<Contract> retrieve(){
-		return contractList;
+		return null;
 	}
 
 	public boolean update(){
