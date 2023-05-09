@@ -4,6 +4,8 @@ import utils.ConnectErrorException;
 import utils.EmptyValueException;
 import utils.InvalidInputException;
 
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.util.*;
 
 public class Insurance {
@@ -16,6 +18,10 @@ public class Insurance {
 	private int insuranceID;
 	private String insuranceName;
 	private PremiumRate premiumRate;
+	/**
+	 * added
+	 */
+	private boolean authorizeState;
 
 	public Insurance(int coverageAmount, String coverageEvent, int coveragePeriod, String coverageTarget, int insuranceFee, String insuranceName) throws EmptyValueException{
 		this.coverageAmount = coverageAmount;
@@ -25,57 +31,24 @@ public class Insurance {
 		this.insuranceFee = insuranceFee;
 		this.insuranceName = insuranceName;
 		this.insuranceID = UUID.randomUUID().hashCode();
-		List<String> missingFields = new ArrayList<>();
-		if (coverageAmount <= 0) {
-			missingFields.add("보상금액");
-		}
-		if (coveragePeriod <= 0) {
-			missingFields.add("보장기간");
-		}
-		if (coverageEvent == null || coverageEvent.isEmpty()) {
-			missingFields.add("보장사건");
-		}
-		if (coverageTarget == null || coverageTarget.isEmpty()) {
-			missingFields.add("보장대상");
-		}
-		if (insuranceFee <= 0) {
-			missingFields.add("보험료");
-		}
-		if (insuranceName == null || insuranceName.isEmpty()) {
-			missingFields.add("상품명");
-		}
-		if (!missingFields.isEmpty()) {
-			String message = String.format("%s 정보를 입력하지 않았습니다.", String.join(", ", missingFields));
-			throw new EmptyValueException(message);
-		}
-		//checkEmptyValue(coverageAmount, coverageEvent, coveragePeriod, coverageTarget, insuranceFee, insuranceName);
+		this.authorizeState = false;
 	}
 
 
-	public boolean authorize() throws InvalidInputException, ConnectErrorException, EmptyValueException {
-		System.out.println("1. 인가하기");
-		System.out.println("2. 임시저장하기");
-		Scanner scanner = new Scanner(System.in);
-		String line = scanner.nextLine();
-		if (line.equals("1")) {
-			System.out.println("1. 연결성공");
-			System.out.println("2. 연결실패");
-			String connection = scanner.nextLine();
-			if (connection == null || insuranceName.isEmpty()) {
-				throw new EmptyValueException("정보를 입력하지 않았습니다.");
-			}
-			if (connection.equals("1")) {
-				System.out.println("상품이 인가되었습니다");
-				return true;
-			} else if (connection.equals("2")) {
-				throw new ConnectErrorException("금융감독원과의 연결이 되지않았습니다. 다시 시도하십시오.");
-			}else {
-				throw new InvalidInputException("입력은 1 혹은 2 입니다.");
-			}
-		} else if (line.equals("2")) {
-			//임시저장
+	public boolean authorize(BufferedReader objectReader) throws InvalidInputException, ConnectErrorException, EmptyValueException, IOException {
+		System.out.println("1. 연결성공");
+		System.out.println("2. 연결실패");
+		String connection = objectReader.readLine().trim();
+		if (connection == null || insuranceName.isEmpty()) {
+			throw new EmptyValueException("정보를 입력하지 않았습니다.");
+		}
+		if (connection.equals("1")) {
+			setAuthorizeState(true);
+			System.out.println("상품이 인가되었습니다");
 			return true;
-		} else {
+		} else if (connection.equals("2")) {
+			throw new ConnectErrorException("금융감독원과의 연결이 되지않았습니다. 다시 시도하십시오.");
+		}else {
 			throw new InvalidInputException("입력은 1 혹은 2 입니다.");
 		}
 	}
@@ -85,33 +58,77 @@ public class Insurance {
 		return premiumRate.calculate();
 	}
 
-	/**
-	 * refactoring 질문
-	 */
-//	private static void checkEmptyValue(int coverageAmount, String coverageEvent, int coveragePeriod, String coverageTarget, int insuranceFee, String insuranceName) throws EmptyValueException {
-//		List<String> missingFields = new ArrayList<>();
-//		if (coverageAmount <= 0) {
-//			missingFields.add("보상금액");
-//		}
-//		if (coveragePeriod <= 0) {
-//			missingFields.add("보장기간");
-//		}
-//		if (coverageEvent == null || coverageEvent.isEmpty()) {
-//			missingFields.add("보장사건");
-//		}
-//		if (coverageTarget == null || coverageTarget.isEmpty()) {
-//			missingFields.add("보장대상");
-//		}
-//		if (insuranceFee <= 0) {
-//			missingFields.add("보험료");
-//		}
-//		if (insuranceName == null || insuranceName.isEmpty()) {
-//			missingFields.add("상품명");
-//		}
-//		if (!missingFields.isEmpty()) {
-//			String message = String.format("%s 정보를 입력하지 않았습니다.", String.join(", ", missingFields));
-//			throw new EmptyValueException(message);
-//		}
-//	}
+	public int getCoverageAmount() {
+		return coverageAmount;
+	}
+
+	public void setCoverageAmount(int coverageAmount) {
+		this.coverageAmount = coverageAmount;
+	}
+
+	public String getCoverageEvent() {
+		return coverageEvent;
+	}
+
+	public void setCoverageEvent(String coverageEvent) {
+		this.coverageEvent = coverageEvent;
+	}
+
+	public int getCoveragePeriod() {
+		return coveragePeriod;
+	}
+
+	public void setCoveragePeriod(int coveragePeriod) {
+		this.coveragePeriod = coveragePeriod;
+	}
+
+	public String getCoverageTarget() {
+		return coverageTarget;
+	}
+
+	public void setCoverageTarget(String coverageTarget) {
+		this.coverageTarget = coverageTarget;
+	}
+
+	public int getInsuranceFee() {
+		return insuranceFee;
+	}
+
+	public void setInsuranceFee(int insuranceFee) {
+		this.insuranceFee = insuranceFee;
+	}
+
+	public int getInsuranceID() {
+		return insuranceID;
+	}
+
+	public void setInsuranceID(int insuranceID) {
+		this.insuranceID = insuranceID;
+	}
+
+	public String getInsuranceName() {
+		return insuranceName;
+	}
+
+	public void setInsuranceName(String insuranceName) {
+		this.insuranceName = insuranceName;
+	}
+
+	public PremiumRate getPremiumRate() {
+		return premiumRate;
+	}
+
+	public void setPremiumRate(PremiumRate premiumRate) {
+		this.premiumRate = premiumRate;
+	}
+
+	public boolean isAuthorizeState() {
+		return authorizeState;
+	}
+
+	public void setAuthorizeState(boolean authorizeState) {
+		this.authorizeState = authorizeState;
+	}
+
 
 }

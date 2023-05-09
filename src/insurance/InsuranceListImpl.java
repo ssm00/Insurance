@@ -7,11 +7,12 @@ public class InsuranceListImpl implements InsuranceList {
 	private ArrayList<Insurance> insuranceList;
 
 	public InsuranceListImpl(){
-
+		insuranceList = new ArrayList<>();
 	}
 
-	public boolean add(){
-		return false;
+	public boolean add(Insurance insurance){
+		this.insuranceList.add(insurance);
+		return true;
 	}
 
 	public boolean delete(){
@@ -19,11 +20,14 @@ public class InsuranceListImpl implements InsuranceList {
 	}
 
 	public ArrayList<Insurance> retrieve(){
-		return null;
+		return this.insuranceList;
 	}
 
 	public boolean update(){
 		return false;
 	}
 
+	public ArrayList<Insurance> getInsuranceList() {
+		return insuranceList;
+	}
 }
