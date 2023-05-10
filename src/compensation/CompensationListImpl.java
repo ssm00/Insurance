@@ -1,54 +1,34 @@
 package compensation;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
-
 public class CompensationListImpl implements CompensationList {
     protected ArrayList<Compensation> compensationList;
-    public CompensationListImpl(File file) throws IOException{
-        BufferedReader reader = new BufferedReader(new FileReader(file));
+    public CompensationListImpl() {
         this.compensationList = new ArrayList<Compensation>();
-        while (reader.ready()) {
-            String compensationDetail = reader.readLine();
-            if (!compensationDetail.equals("")) {
-                this.compensationList.add(new Compensation(compensationDetail));
-            }
-        }
-        reader.close();
     }
-    public ArrayList<Compensation> getAllCompensationRecords() {
+    public ArrayList<Compensation> getAllCompensationList() {
         return this.compensationList;
     }
-    public boolean add(String compensationDetail){
-        if (this.compensationList.add(new Compensation(compensationDetail))) return true;
+    public boolean add(String compensationMoney, int condition, int evaluation) {
+        if (this.compensationList.add(new Compensation(compensationMoney, condition, evaluation))) return true;
         else return false;
     }
-
     public boolean delete(String compensationId){
         for (int i = 0; i < this.compensationList.size(); i++) {
             Compensation compensation = (Compensation) this.compensationList.get(i);
-            if (compensation.compensationId.equals(compensationId)) {
+            if (compensation.match(compensationId)) {
                 if (this.compensationList.remove(compensation)) return true;
                 else return false;
             }
         }
         return false;
     }
-
     public ArrayList<Compensation> retrieve(){
         if (this.compensationList.size() == 0);
         return this.compensationList;
     }
-
     public boolean update(){
+        // update compensationList
         return false;
     }
-    public void examine(String input) {
-    }
-    public void authorize(String input) {
-    }
-    public void remit(String input) {
-    }
 }
+
