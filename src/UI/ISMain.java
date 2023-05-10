@@ -14,12 +14,10 @@ import uw.LossRate;
 import uw.UW;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
-import java.rmi.ServerException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -34,8 +32,11 @@ public class ISMain {
     SalesListImpl salesListImpl;
     ArrayList<Sale> saleList;
     CompensationListImpl compensationList;
-
+    InsuranceListImpl insuranceList;
     public ISMain() {
+        insuranceList = new InsuranceListImpl();
+        insuranceList.add(new Insurance(1, "dddd", 2, "AAA", 111, "보험1"));
+
         customerListImpl = new CustomerListImpl();
         customerListImpl.add(new Customer("zxcvbn","김범준","용인",24,"남자","무직"));
         customerList = customerListImpl.retrieve();
@@ -50,6 +51,7 @@ public class ISMain {
         salesListImpl.add(new Sale("wertyy","qwerty",12551, new Date()));
         salesListImpl.add(new Sale("zxcvbn","asdfgh",12121, new Date()));
         saleList = salesListImpl.retrieve();
+
 
         compensationList = new CompensationListImpl();
     }
@@ -71,14 +73,6 @@ public class ISMain {
                     case "3":
                         isMain.printMarketingMenu(objectReader);
                         break;
-                    case "4":
-                        break;
-                    case "5":
-                        break;
-                    case "6":
-                        break;
-                    case "7":
-                        break;
                     case "x":
                         return;
                     default:
@@ -98,33 +92,95 @@ public class ISMain {
     }
 
     private void printMarketingMenu(BufferedReader objectReader) {
-        System.out.println("1. 고객정보관리");
-        System.out.println("2. 회원가입");
-        System.out.println("3. 영업활동관리");
+        try {
+            while (true) {
+                System.out.println("1. 고객정보관리");
+                System.out.println("2. 회원가입");
+                System.out.println("3. 영업활동관리");
+                System.out.println("x. 나가기");
+                String sChoice = objectReader.readLine().trim();
+                switch (sChoice) {
+                    case "1":
+                        manageCustomers(objectReader);
+                        break;
+                    case "2":
+                        registerCustomer(objectReader);
+                        break;
+                    case "3":
+                        manageSale(objectReader);
+                        break;
+                    case "x":
+                        return;
+                    default:
+                        System.out.println("Invaild choice !!!");
+                }
+            }
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        } catch (SaveFailedException e) {
+            System.out.println(e.getMessage());
+        } catch (EmptyValueException e) {
+            System.out.println(e.getMessage());
+        }
+        System.out.println("프로그램 종료");
     }
 
-    private
-    void printContractMenu(BufferedReader objectReader) {
-        System.out.println("1. 상품개발");
-        System.out.println("2. UW");
-        System.out.println("3. 계약관리");
-
+    private void printContractMenu(BufferedReader objectReader) {
+        try {
+            while (true) {
+                System.out.println("1. 상품개발");
+                System.out.println("2. UW");
+                System.out.println("3. 계약관리");
+                System.out.println("4. 계약통계");
+                System.out.println("x. 나가기");
+                String sChoice = objectReader.readLine().trim();
+                switch (sChoice) {
+                    case "1":
+                        designInsurance(objectReader);
+                        break;
+                    case "2":
+                        uwStarted(objectReader);
+                        break;
+                    case "3":
+                        manageContracts(objectReader);
+                        break;
+                    case "4":
+                        contractStatics(objectReader);
+                        break;
+                    case "x":
+                        return;
+                    default:
+                        System.out.println("Invaild choice !!!");
+                }
+            }
+        } catch (IOException | InvalidInputException e) {
+            System.out.println(e.getMessage());
+        } catch (SaveFailedException e) {
+            System.out.println(e.getMessage());
+        } catch (EmptyValueException e) {
+            System.out.println(e.getMessage());
+        } catch (ParseException e) {
+            System.out.println(e.getMessage());
+        } catch (NoFileException e) {
+            System.out.println(e.getMessage());
+        } catch (NoExpiredContractException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
-    private
-    void designInsurance(BufferedReader objectReader) throws IOException, InvalidInputException {
-        InsuranceListImpl insuranceList = new InsuranceListImpl();
+    private void designInsurance(BufferedReader objectReader) throws IOException, InvalidInputException {
         while (true) {
             System.out.println("1. 보장내용 입력");
             System.out.println("2. 요율 계산");
             System.out.println("3. 상품 인가");
+            System.out.println("x. 나가기");
             String choiceInsuranceMenu = objectReader.readLine().trim();
             try {
                 switch (choiceInsuranceMenu) {
                     case "1":
                         Insurance insurance = createInsurance(objectReader);
                         System.out.println("요율은 <"+insurance.calculateRate()+"> 입니다.");
-                        authorize(objectReader, insuranceList, insurance);
+                        authorizeInsurance(objectReader, insuranceList, insurance);
                         break;
                     case "2":
                         showInsuranceList(insuranceList);
@@ -138,6 +194,8 @@ public class ISMain {
                         Insurance choiceInsurance1 = insuranceList.getInsuranceList().get(choiceNumber1 - 1);
                         choiceInsurance1.authorize(objectReader);
                         break;
+                    case "x":
+                        return;
                     default:
                         throw new InvalidInputException("입력은 1,2,3중 하나 입니다.");
                 }
@@ -155,11 +213,11 @@ public class ISMain {
         int cnt = 1;
         for (Insurance insurance : insuranceList.getInsuranceList()) {
             System.out.println(cnt+" :  "+" Name : "+insurance.getInsuranceName());
+            cnt++;
         }
     }
 
-    private
-    void authorize(BufferedReader objectReader, InsuranceListImpl insuranceList, Insurance insurance) throws IOException, EmptyValueException {
+    private void authorizeInsurance(BufferedReader objectReader, InsuranceListImpl insuranceList, Insurance insurance) throws IOException, EmptyValueException {
         while (true) {
             System.out.println("1. 상품 인가");
             System.out.println("2. 상품 임시저장");
@@ -169,6 +227,7 @@ public class ISMain {
                     boolean authorized = insurance.authorize(objectReader);
                     if (authorized) {
                         insuranceList.add(insurance);
+                        System.out.println("authorized = " + authorized);
                     }
                     break;
                 }
@@ -189,8 +248,7 @@ public class ISMain {
         }
     }
 
-    private
-    Insurance createInsurance(BufferedReader objectReader) throws IOException, InvalidInputException, EmptyValueException {
+    private Insurance createInsurance(BufferedReader objectReader) throws IOException, InvalidInputException, EmptyValueException {
         while (true) {
             try {
                 System.out.print("보장대상: ");
@@ -210,8 +268,7 @@ public class ISMain {
         }
     }
 
-    private
-    void validateInsuranceInput(String coverageTarget, String coverageEvent, Integer coverageAmount, Integer coveragePeriod, Integer insuranceFee, String insuranceName) throws EmptyValueException {
+    private void validateInsuranceInput(String coverageTarget, String coverageEvent, Integer coverageAmount, Integer coveragePeriod, Integer insuranceFee, String insuranceName) throws EmptyValueException {
         List<String> missingFields = new ArrayList<>();
         if (coverageAmount <= 0) {
             missingFields.add("보상금액");
@@ -496,6 +553,7 @@ public class ISMain {
                 System.out.println("-------------------------------------------------------------");
                 ++count;
             }
+            System.out.println("계약번호를 입력해주세요");
         }catch (NullPointerException e){
             throw new NoFileException();
         }
@@ -511,19 +569,23 @@ public class ISMain {
             System.out.println("-------------------------------------------------------------");
             ++count;
         }
+        System.out.println("고객번호를 입력해주세요.");
     }
 
     /**
      * ------------------------------------------------------------------------------
      */
 
-    private void UWstarted(BufferedReader objectReader) throws RemoteException, IOException {
+    private void uwStarted(BufferedReader objectReader) throws RemoteException, IOException {
 
-        System.out.print("----UW 업무를 선택하세요---- (1)인수심사 (2)재보험처리 (3)손해율관리");
+        System.out.println("----UW 업무를 선택하세요----");
+        System.out.println("1. 인수심사");
+        System.out.println("2. 재보험처리");
+        System.out.println("3. 손해율관리");
         String sChoice = objectReader.readLine().trim();
         switch (sChoice) {
             case "1": //인수심사
-                UnderWriting(objectReader);
+                underWriting(objectReader);
                 System.out.println("인수 심사가 완료되었습니다.");
                 break;
             case "2"://재보험처리
@@ -544,7 +606,7 @@ public class ISMain {
 
 
     //인수심사
-    private void UnderWriting(BufferedReader objectReader) {
+    private void underWriting(BufferedReader objectReader) {
 
 
         UW uw = new UW();
@@ -640,47 +702,13 @@ public class ISMain {
      * -------------------------------------------------------------------------------------
      */
 
-    // private void terminate(BufferedReader userInput) throws IOException {
-    //     System.out.println("-----Compensation Evaluation-----");
-    // 	System.out.print("Treminate "); String input = userInput.readLine().trim();
-    //     compensationList.terminate(input);
-    // }
-
-    private void remit(BufferedReader userInput) throws IOException {
-        System.out.println("-----Remit-----");
-        System.out.print("Total: "); String input = userInput.readLine().trim();
-        compensationList.remit(input);
-    }
-
-
-    private void examine(BufferedReader userInput) throws IOException {
-        System.out.println("-----Compensation Examination-----");
-        System.out.print("Evaluation: "); String input = userInput.readLine().trim();
-        compensationList.examine(input);
-    }
-
-
-    private void authorize(BufferedReader userInput) throws IOException {
-        System.out.println("-----Compensation Authorization-----");
-        System.out.print("Authorize? Y/N: "); String input = userInput.readLine().trim();
-        compensationList.authorize(input);
-    }
-
 
     private void printMenu() {
-        System.out.println("*****************MENU*****************");
-        System.out.println("1. Authorize Compensation");
-        System.out.println("2. Examine Compensation");
-        System.out.println("3. Remit Compensation");
-        System.out.println("4. Terminate Compensation");
-    }
-
-    private
-    void printMenu() {
         System.out.println("*********************MENU********************");
         System.out.println("1. 계약");
         System.out.println("2. 보상");
         System.out.println("3. 마케팅");
+        System.out.println("x. 종료하기");
     }
     private
     void showList(ArrayList<?> dataList) throws RemoteException {
