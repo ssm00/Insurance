@@ -1,5 +1,7 @@
 package UI;
 
+import compensation.Compensation;
+import compensation.CompensationList;
 import compensation.CompensationListImpl;
 import contract.Contract;
 import contract.ContractListImpl;
@@ -24,6 +26,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.security.sasl.AuthorizeCallback;
+
 public class ISMain {
     CustomerListImpl customerListImpl;
     ArrayList<Customer> customerList;
@@ -31,7 +35,8 @@ public class ISMain {
     ArrayList<Contract> contractList;
     SalesListImpl salesListImpl;
     ArrayList<Sale> saleList;
-    CompensationListImpl compensationList;
+    CompensationListImpl compensationListImpl;
+    ArrayList<Compensation> compensationList;
     InsuranceListImpl insuranceList;
     public ISMain() {
         insuranceList = new InsuranceListImpl();
@@ -85,10 +90,34 @@ public class ISMain {
     }
 
     private void printCompensationMenu(BufferedReader objectReader) {
-        System.out.println("1. 보상관리");
-        System.out.println("2. 보상평가");
-        System.out.println("3. 손해조사");
-        System.out.println("4. 보상심사");
+        try {
+            while(true) {
+                System.out.println("1. 보상관리");
+                System.out.println("2. 보상평가");
+                System.out.println("3. 손해조사");
+                System.out.println("4. 보상심사");
+                System.out.println("x. 나가기");
+                String userInput = objectReader.readLine().trim();
+                switch (userInput) {
+                    case "1":
+                        manageCompensation(objectReader);
+                        break;
+                    case "2":
+                        examineCompensation(objectReader);
+                        break;
+                    case "3":
+                        investigateDamage(objectReader);
+                        break;
+                    case "4":
+                        authorizeCompensation(objectReader);
+                    case "x":
+                        return;
+                    default:
+                        System.out.println("Invaild choice !!!");
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     private void printMarketingMenu(BufferedReader objectReader) {
@@ -698,6 +727,29 @@ public class ISMain {
 
     }
 
+    /**
+     * ---------------------------------------------------------------------------
+     */
+    private void authorizeCompensation(BufferedReader objectReader) {
+        int count = 1;
+        System.out.println("-------------보상 목록--------------");
+        try {
+            for (Compensation compensation: compensationList) {
+
+            }
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
+    }
+
+    private void investigateDamage(BufferedReader objectReader) {
+    }
+
+    private void examineCompensation(BufferedReader objectReader) {
+    }
+
+    private void manageCompensation(BufferedReader objectReader) {
+    }
     /**
      * -------------------------------------------------------------------------------------
      */
