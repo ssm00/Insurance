@@ -6,6 +6,7 @@ import contract.ContractListImpl;
 import customer.Customer;
 import customer.CustomerListImpl;
 import insurance.Insurance;
+import insurance.InsuranceList;
 import insurance.InsuranceListImpl;
 import sales.Sale;
 import sales.SalesListImpl;
@@ -36,6 +37,7 @@ public class ISMain {
     public ISMain() {
         insuranceList = new InsuranceListImpl();
         insuranceList.add(new Insurance(1, "dddd", 2, "AAA", 111, "보험1"));
+        insuranceList.add(new Insurance(2, "dddd", 3, "BBB", 123, "보험2"));
 
         customerListImpl = new CustomerListImpl();
         customerListImpl.add(new Customer("zxcvbn","김범준","용인",24,"남자","무직"));
@@ -574,134 +576,48 @@ public class ISMain {
 
     /**
      * ------------------------------------------------------------------------------
+     * @throws InvalidInputException 
      */
 
-    private void uwStarted(BufferedReader objectReader) throws RemoteException, IOException {
-
+    private void uwStarted(BufferedReader objectReader) throws RemoteException, IOException, InvalidInputException {
+    	
+    	
+    	showInsuranceList(insuranceList);
+   
+        Integer choiceNumber = readIntegerInput(objectReader, "상품번호를 입력해주세요");
+        Insurance choiceInsurance = insuranceList.getInsuranceList().get(choiceNumber - 1);
+        
         System.out.println("----UW 업무를 선택하세요----");
         System.out.println("1. 인수심사");
         System.out.println("2. 재보험처리");
         System.out.println("3. 손해율관리");
-        String sChoice = objectReader.readLine().trim();
-        switch (sChoice) {
+        
+        UW underwriting = new UW();   
+        String sChoice1 = objectReader.readLine().trim();
+        
+        switch (sChoice1) {
             case "1": //인수심사
-                underWriting(objectReader);
-                System.out.println("인수 심사가 완료되었습니다.");
+            	underwriting.underWriting(objectReader, choiceInsurance);
+                System.out.println(choiceInsurance.getInsuranceName() + ": 인수 심사가 완료되었습니다.");
                 break;
             case "2"://재보험처리
-                calculateReinsuranceFee(objectReader);
-                System.out.println("재보험 처리가 완료되었습니다.");
+            	underwriting.reinsuranceProcessign(objectReader, choiceInsurance);
+                System.out.println(choiceInsurance.getInsuranceName() + ": 재보험 처리가 완료되었습니다.");
                 break;
             case "3"://손해율관리
-                calculateLossRate(objectReader);
-                System.out.println("손해율 계산이 완료되었습니다.");
+            	underwriting.calculateLossRate(objectReader);
                 break;
             case "x":
                 return;
             default:
                 System.out.println("Invaild choice!");
         }
-
     }
 
-
-    //인수심사
-    private void underWriting(BufferedReader objectReader) {
-
-
-        UW uw = new UW();
-        System.out.println("인수 심사를 진행합니다.");
-
-        System.out.println("--청약서 확인.--");
-        uw.setApplicationForm(true);
-        System.out.println("--증권 확인.--");
-        uw.setSecurity(true);
-
-        uw.underWriting(); //자동심사, return true;
-        if (uw.underWriting()) {
-            System.out.println("심사가 성공했습니다.");
-        }
-        else
-            System.out.println("심사에 실패했습니다.");
-
-
-        //인수 여부 확인?
-
-    }
-
-    //재보험 처리
-    private void calculateReinsuranceFee(BufferedReader objectReader) {
-
-
-        UW uw = new UW();
-
-        System.out.println("재보험 처리를 진행합니다.");
-
-        //재보험 처리
-        if(uw.Reinsurance()) {
-            System.out.println("재보험 승인에 성공했습니다.");
-            System.out.println("재보험료 : " + uw.calculateReinsuranceFee());
-        }
-        else
-            System.out.println("재보험 승인에 실패했습니다.");
-
-
-    }
-
-    //손해율관리
-    private void calculateLossRate(BufferedReader objectReader) {
-
-        LossRate lossRate = new LossRate();
-
-        System.out.println("계산을 위한 데이터를 입력해주세요.");
-        System.out.println("사고 종류 : ");
-        String accidentType = null;
-        try {
-            accidentType = objectReader.readLine().trim();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        lossRate.setAccidentType(accidentType);
-
-        System.out.println("보상 한도 : ");
-        int coverageLimit = 0;
-        try {
-            coverageLimit = Integer.parseInt(objectReader.readLine());
-            //objectReader.readLine().trim();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        lossRate.setCoverageLimit(coverageLimit);
-
-        System.out.println("보험료 : ");
-        int insuranceFee = 0;
-        try {
-            insuranceFee = Integer.parseInt(objectReader.readLine());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        lossRate.setInsuranceFee(insuranceFee);
-
-        System.out.println("지급된 보상액 : ");
-        int paedAmount = 0;
-        try {
-            paedAmount = Integer.parseInt(objectReader.readLine());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        lossRate.setPaidAmount(paedAmount);
-
-        //계산..
-        lossRate.calculateLossRate();
-
-        System.out.println("계산된 손해액 : " + lossRate.getLossRate());
-
-    }
 
     /**
      * -------------------------------------------------------------------------------------
      */
-
 
     private void printMenu() {
         System.out.println("*********************MENU********************");
