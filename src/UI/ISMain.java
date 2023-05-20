@@ -7,6 +7,7 @@ import customer.Customer;
 import customer.CustomerListImpl;
 import insurance.Insurance;
 import insurance.InsuranceListImpl;
+import insurance.PremiumRate;
 import sales.Sale;
 import sales.SalesListImpl;
 import utils.*;
@@ -171,7 +172,7 @@ public class ISMain {
     private void designInsurance(BufferedReader objectReader) throws IOException, InvalidInputException {
         while (true) {
             System.out.println("1. 보장내용 입력");
-            System.out.println("2. 요율 계산");
+            System.out.println("2. 요율 산출");
             System.out.println("3. 상품 인가");
             System.out.println("x. 나가기");
             String choiceInsuranceMenu = objectReader.readLine().trim();
@@ -179,14 +180,11 @@ public class ISMain {
                 switch (choiceInsuranceMenu) {
                     case "1":
                         Insurance insurance = createInsurance(objectReader);
-                        System.out.println("요율은 <"+insurance.calculateRate()+"> 입니다.");
+                        printPremiunRate(insurance.getPremiumRate());
                         authorizeInsurance(objectReader, insuranceList, insurance);
                         break;
                     case "2":
-                        showInsuranceList(insuranceList);
-                        Integer choiceNumber = readIntegerInput(objectReader, "상품번호를 입력해주세요");
-                        Insurance choiceInsurance = insuranceList.getInsuranceList().get(choiceNumber - 1);
-                        System.out.println("요율은 <"+choiceInsurance.calculateRate()+"> 입니다.");
+                        showPremiumRateMenu(objectReader);
                         break;
                     case "3":
                         showInsuranceList(insuranceList);
@@ -206,6 +204,32 @@ public class ISMain {
                 System.out.println(e.getMessage());
             }
         }
+    }
+
+    private void showPremiumRateMenu(BufferedReader objectReader) throws IOException, InvalidInputException {
+        System.out.println("1. 상품 리스트");
+        System.out.println("2. 직접 산출");
+        String choiceInsuranceMenu = objectReader.readLine().trim();
+        if (choiceInsuranceMenu.equals(1)) {
+            showInsuranceList(insuranceList);
+            Integer choiceNumber = readIntegerInput(objectReader, "상품번호를 입력해주세요");
+            Insurance choiceInsurance = insuranceList.getInsuranceList().get(choiceNumber - 1);
+            printPremiunRate(choiceInsurance.getPremiumRate());
+        } else if (choiceInsuranceMenu.equals(2)) {
+            Integer coverageAmount = readIntegerInput(objectReader, "보장금액: ");
+            Integer coveragePeriod = readIntegerInput(objectReader, "보장기간: ");
+            System.out.print("보장대상: ");
+            String coverageTarget = objectReader.readLine().trim();
+            System.out.print("보장사건: ");
+            String coverageEvent = objectReader.readLine().trim();
+            Integer insuranceFee = readIntegerInput(objectReader, "보험료: ");
+            PremiumRate premiumRate = new PremiumRate(coverageAmount, coverageEvent, coveragePeriod, coverageTarget, insuranceFee);
+            printPremiunRate(premiumRate);
+        }
+    }
+
+    private static void printPremiunRate(PremiumRate premiumRate) {
+        System.out.println("요율은 ("+Math.round(premiumRate.calculate()*10.0)/10.0+"%) 입니다.");
     }
 
     private
@@ -236,6 +260,7 @@ public class ISMain {
                     String temporalName = objectReader.readLine().trim();
                     insurance.setInsuranceName(temporalName);
                     insuranceList.add(insurance);
+                    System.out.print("임시저장이 완료되었습니다.");
                     break;
                 } else {
                     throw new InvalidInputException("입력은 1,2중 하나 입니다.");
@@ -415,21 +440,15 @@ public class ISMain {
                 ++count;
             }
         }
-        if(!checkExpired){
-            throw new NoExpiredContractException(); //만료된 계약이 없으면 예외생성
-        }
+        if(!checkExpired) throw new NoExpiredContractException(); //만료된 계약이 없으면 예외생성
     }
-
-    private  void manageCustomers(BufferedReader objectReader) throws IOException, EmptyValueException, IndexOutOfBoundsException, NumberFormatException, SaveFailedException {
-
+    private  void manageCustomers(BufferedReader objectReader)
+            throws IOException, EmptyValueException, IndexOutOfBoundsException, NumberFormatException, SaveFailedException {
         showCustomerList();
         String sChoice = objectReader.readLine().trim();
         Customer selectedCustomer = customerList.get(Integer.parseInt(sChoice) - 1);
-
         editCustomer(objectReader, selectedCustomer);
     }
-
-
     private void editCustomer(BufferedReader objectReader, Customer selectedCustomer) throws IOException, EmptyValueException, SaveFailedException {
         System.out.println("ID: "+selectedCustomer.getCustomerID());
         System.out.println("이름: "+selectedCustomer.getCustomerName());
@@ -650,9 +669,7 @@ public class ISMain {
 
     //손해율관리
     private void calculateLossRate(BufferedReader objectReader) {
-
         LossRate lossRate = new LossRate();
-
         System.out.println("계산을 위한 데이터를 입력해주세요.");
         System.out.println("사고 종류 : ");
         String accidentType = null;
@@ -662,7 +679,6 @@ public class ISMain {
             e.printStackTrace();
         }
         lossRate.setAccidentType(accidentType);
-
         System.out.println("보상 한도 : ");
         int coverageLimit = 0;
         try {

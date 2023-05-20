@@ -35,9 +35,7 @@ public class Contract {
 
 	public boolean checkExpired(){
 		int result = expirationDate.compareTo(new Date());
-		// 만료됨
 		if(result <= 0){isExpired = true;}
-		// 만료 안됨
 		else{isExpired = false;}
 		return isExpired;
 	}
