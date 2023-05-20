@@ -1,4 +1,5 @@
 package UI;
+<<<<<<< Updated upstream
 
 import compensation.CompensationListImpl;
 import contract.Contract;
@@ -72,6 +73,63 @@ public class ISMain {
                         break;
                     case "3":
                         isMain.printMarketingMenu(objectReader);
+=======
+import Dao.ContractDao;
+import Dao.CustomerDao;
+import Dao.SaleDao;
+import contract.Contract;
+import customer.Customer;
+import sales.Sale;
+import server.ServerIF;
+import utils.EmptyValueException;
+import utils.NoExpiredContractException;
+import utils.SaveFailedException;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.rmi.Naming;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+public class ISMain{
+    ContractDao contractDao;
+    SaleDao saleDao;
+    CustomerDao customerDao;
+    public ISMain(){
+        super();
+        contractDao = new ContractDao();
+        saleDao = new SaleDao();
+        customerDao = new CustomerDao();
+    }
+    public static void main(String[] args){
+
+
+        try {
+            ISMain main = new ISMain();
+            BufferedReader objectReader = new BufferedReader(new InputStreamReader(System.in));
+            while(true) {
+                main.printMenu();
+                String sChoice = objectReader.readLine().trim();
+                switch (sChoice) {
+                    case "1": // 회원가입
+                        main.registerCustomer(objectReader);
+                        break;
+                    case "2": // 영업활동관리
+                        main.manageSale(objectReader);
+                        break;
+                    case "3": // 계약관리
+                        main.manageContracts(objectReader);
+                        break;
+                    case "4": // 계약통계
+                        main.contractStatics(objectReader);
+                        break;
+                    case "5": // 고객관리
+                        main.manageCustomers(objectReader);
+>>>>>>> Stashed changes
                         break;
                     case "x":
                         return;
@@ -79,6 +137,7 @@ public class ISMain {
                         System.out.println("Invaild choice !!!");
                 }
             }
+<<<<<<< Updated upstream
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
@@ -310,6 +369,28 @@ public class ISMain {
      * ---------------------------------------------------------------------------
      */
 
+=======
+        }catch (RemoteException e) {e.printStackTrace();}
+        catch (NumberFormatException e) {System.out.println("올바른 값을 입력해주세요.");}
+        catch (IndexOutOfBoundsException e) {System.out.println("잘못된 입력입니다.");}
+        catch (Exception e) {e.printStackTrace();}
+    }
+    private void manageContracts(BufferedReader objectReader) throws IOException, SaveFailedException, EmptyValueException {
+        showContractsList();
+        String sChoice = objectReader.readLine().trim();
+        Contract selectedContract = contractDao.retrieveAll().retrieve().get(Integer.parseInt(sChoice) - 1);
+        editContract(objectReader, selectedContract);
+    }
+    private void printMenu() {
+        System.out.println("*********************MENU********************");
+        System.out.println("1. 회원가입");
+        System.out.println("2. 영업활동관리");
+        System.out.println("3. 계약관리");
+        System.out.println("4. 계약통계");
+        System.out.println("5. 고객정보관리");
+        System.out.println("x. 나가기");
+    }
+>>>>>>> Stashed changes
     private void registerCustomer(BufferedReader objectReader) throws IOException, EmptyValueException, NumberFormatException, SaveFailedException {
         System.out.println("ID를 입력해주세요.");
         String newCustomerID = objectReader.readLine().trim();
@@ -323,21 +404,29 @@ public class ISMain {
         String newCustomerGender = objectReader.readLine().trim();
         System.out.println("나이를 입력해주세요.");
         String newCustomerAge = objectReader.readLine().trim();
+<<<<<<< Updated upstream
 
         //입력한 값이 하나라도 비어있을 경우
 
+=======
+>>>>>>> Stashed changes
         try{
             if(newCustomerID.isEmpty() || newCustomerName.isEmpty()
                     ||newCustomerAddress.isEmpty() || newCustomerJob.isEmpty()
                     ||newCustomerGender.isEmpty() || newCustomerAge.isEmpty()){
                 throw new EmptyValueException("모든 내용을 빠짐없이 입력해주세요.");
             }else{
+<<<<<<< Updated upstream
                 //제대로 입력이 됐을 경우 리스트에 저장
                 customerList.add(new Customer(newCustomerID, newCustomerName,
+=======
+                customerDao.create(new Customer(Integer.parseInt(newCustomerID), newCustomerName,
+>>>>>>> Stashed changes
                         newCustomerAddress,Integer.parseInt(newCustomerAge),
                         newCustomerGender, newCustomerJob));
                 System.out.println("회원가입에 성공했습니다.");
             }
+<<<<<<< Updated upstream
         }
         catch (NumberFormatException e){
             throw new SaveFailedException();
@@ -715,8 +804,185 @@ public class ISMain {
         String list = "";
         for(int i=0; i<dataList.size(); i++) {
             list += dataList.get(i) + "\n";
+=======
+>>>>>>> Stashed changes
         }
-        System.out.println(list);
+        catch (NumberFormatException e){throw new SaveFailedException();}
+    }
+    private void contractStatics(BufferedReader objectReader) throws IOException, NoExpiredContractException{
+        showContractsList();
+        System.out.println("*********************MENU********************");
+        System.out.println("1. 만료된 계약 찾기");
+        System.out.println("x. 나가기");
+        String sChoice = objectReader.readLine().trim();
+        switch(sChoice){
+            case "1":
+                showExpiredContract();
+                break;
+            case "x":
+                return;
+            default:
+                System.out.println("올바르지 않은 입력입니다.");
+                break;
+        }
+    }
+    private  void manageSale(BufferedReader objectReader) throws IOException, EmptyValueException, NumberFormatException, SaveFailedException {
+
+        System.out.println("*********************MENU********************");
+        System.out.println("1. 영업활동 내역서 작성");
+        System.out.println("x. 나가기");
+        String sChoice = objectReader.readLine().trim();
+        try{
+            switch(sChoice) {
+                case "1":
+                    System.out.println("고객ID를 입력해주세요.");
+                    String customerID = objectReader.readLine().trim();
+                    System.out.println("직원ID를 입력해주세요.");
+                    String employeeID = objectReader.readLine().trim();
+                    System.out.println("보험ID를 입력해주세요.");
+                    String insuranceID = objectReader.readLine().trim();
+                    if(customerID.isEmpty() || employeeID.isEmpty()|| insuranceID.isEmpty())
+                        throw new EmptyValueException("모든 내용을 빠짐없이 입력해주세요.");
+                    else{
+                        saleDao.create(new Sale(Integer.parseInt(customerID), employeeID,
+                                Integer.parseInt(insuranceID),new Date()));
+                        System.out.println("정보를 저장했습니다.");
+                    }
+                    break;
+                case "x":
+                    break;
+            }
+        }catch (NumberFormatException e){throw new SaveFailedException();}
+    }
+    private void showExpiredContract() throws NoExpiredContractException {
+        boolean checkExpired = false;
+        int count = 1;
+        System.out.println("--------------만료된 계약---------------------");
+        for(Contract contract: contractDao.retrieveAll().retrieve()){
+            if(contract.checkExpired()){
+                System.out.println(count + ".");
+                System.out.println("계약ID: "+contract.getContractID());
+                System.out.println("보험ID: "+contract.getInsuranceID());
+                System.out.println("보험료: "+contract.getInsuranceFee());
+                System.out.println("보험만료일: "+contract.getExpirationDate());
+                System.out.println("보험보장 세부사항: "+contract.getCoverageDetails());
+                System.out.println("-------------------------------------------------------------");
+                checkExpired = true;
+                ++count;
+            }
+        }
+        if(!checkExpired){throw new NoExpiredContractException();}
+    }
+    private  void manageCustomers(BufferedReader objectReader) throws IOException, EmptyValueException, IndexOutOfBoundsException, NumberFormatException, SaveFailedException {
+
+        showCustomerList();
+        String sChoice = objectReader.readLine().trim();
+        Customer selectedCustomer = customerDao.retrieveAll().retrieve().get(Integer.parseInt(sChoice) - 1);
+        editCustomer(objectReader, selectedCustomer);
     }
 
+    private void editCustomer(BufferedReader objectReader, Customer selectedCustomer) throws IOException, EmptyValueException, SaveFailedException {
+        System.out.println("ID: "+selectedCustomer.getCustomerID());
+        System.out.println("이름: "+selectedCustomer.getCustomerName());
+        System.out.println("주소: "+selectedCustomer.getAddress());
+        System.out.println("직업: "+selectedCustomer.getJob());
+        System.out.println("성별: "+selectedCustomer.getGender());
+        System.out.println("나이: "+selectedCustomer.getAge());
+        System.out.println("*********************MENU********************");
+        System.out.println("1. 고객 정보 수정");
+        System.out.println("x. 나가기");
+        String sChoice = objectReader.readLine().trim();
+        try{
+            switch(sChoice){
+                case "1":
+                    System.out.println("수정할 이름 입력해주세요.");
+                    String newCustomerName = objectReader.readLine().trim();
+                    System.out.println("수정할 주소를 입력해주세요.");
+                    String newCustomerAddress = objectReader.readLine().trim();
+                    System.out.println("수정할 직업을 입력해주세요.");
+                    String newCustomerJob = objectReader.readLine().trim();
+                    System.out.println("수정할 성별을 입력해주세요.");
+                    String newCustomerGender = objectReader.readLine().trim();
+                    System.out.println("수정할 나이를 입력해주세요.");
+                    String newCustomerAge = objectReader.readLine().trim();
+
+                    if(newCustomerName.isEmpty()
+                            ||newCustomerAddress.isEmpty() || newCustomerJob.isEmpty()
+                            ||newCustomerGender.isEmpty() || newCustomerAge.isEmpty()){
+                        throw new EmptyValueException("모든 내용을 빠짐없이 입력해주세요.");
+                    }else{
+                        customerDao.update(selectedCustomer,
+                                new Customer(0, newCustomerName,
+                                        newCustomerAddress,Integer.parseInt(newCustomerAge),
+                                        newCustomerGender, newCustomerJob));
+                        System.out.println("고객정보를 저장했습니다.");
+                    }
+                    break;
+                case "x":
+                    return;
+                default:
+                    System.out.println("올바르지 않은 입력입니다.");
+                    break;
+            }
+        }catch (NumberFormatException e){throw new SaveFailedException();}
+    }
+    private void editContract(BufferedReader objectReader, Contract selectedContract) throws IOException, EmptyValueException, SaveFailedException {
+        System.out.println("계약ID: " + selectedContract.getContractID());
+        System.out.println("보험ID: " + selectedContract.getInsuranceID());
+        System.out.println("보험료: " + selectedContract.getInsuranceFee());
+        System.out.println("보험만료일: " + selectedContract.getExpirationDate());
+        System.out.println("보험보장 세부사항: " + selectedContract.getCoverageDetails());
+        System.out.println("*********************MENU********************");
+        System.out.println("1. 계약 정보 수정하기");
+        System.out.println("x. 나가기");
+        String sChoice = objectReader.readLine().trim();
+        switch (sChoice) {
+            case "1":
+                System.out.println("수정할 보험료를 입력해주세요.");
+                String newInsuranceFee = objectReader.readLine().trim();
+                System.out.println("수정할 보험만료일(yyyyMMdd)을 입력해주세요.");
+                String newExpirationDate = objectReader.readLine().trim();
+                System.out.println("수정할 보험보장 세부사항을 입력해주세요.");
+                String newCoverageDetails = objectReader.readLine().trim();
+                try {
+                    if (newInsuranceFee.isEmpty()
+                            || newCoverageDetails.isEmpty() || newExpirationDate.isEmpty()) {
+                        throw new EmptyValueException("모든 내용을 빠짐없이 입력해주세요.");
+                    } else {
+                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
+                        contractDao.update(selectedContract,
+                                new Contract(0, 0,Integer.parseInt(newInsuranceFee),
+                                        simpleDateFormat.parse(newExpirationDate), newCoverageDetails));
+                        System.out.println("계약정보를 저장했습니다.");
+                    }
+                    break;
+                } catch (NumberFormatException | ParseException e) {System.out.println("저장에 실패했습니다. 다시 시도해주세요.");}
+            case "x":
+                return;
+            default:
+                System.out.println("올바르지 않은 입력입니다.");
+                break;}
+    }
+    private void showContractsList() {
+        int count = 1;
+        System.out.println("-------------------------계약 목록---------------------------");
+        for(Contract contract: contractDao.retrieveAll().retrieve()){
+            System.out.println(count + ".");
+            System.out.println("계약ID: "+contract.getContractID());
+            System.out.println("보험ID: "+contract.getInsuranceID());
+            System.out.println("보험료: "+contract.getInsuranceFee());
+            System.out.println("-------------------------------------------------------------");
+            ++count;
+        }
+    }
+    private void showCustomerList() {
+        int count = 1;
+        System.out.println("-------------------------고객 목록---------------------------");
+        for(Customer customer: customerDao.retrieveAll().retrieve()){
+            System.out.println(count + ".");
+            System.out.println("ID: "+customer.getCustomerID());
+            System.out.println("이름: "+customer.getCustomerName());
+            System.out.println("-------------------------------------------------------------");
+            ++count;}
+    }
 }

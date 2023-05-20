@@ -1,14 +1,14 @@
 package customer;
 
 public class Customer {
-	private String customerID;
+	private int customerID;
 	private String customerName;
 	private String address;
 	private int age;
 	private String gender;
 	private String job;
 
-	public Customer(String customerID, String customerName, String address, int age, String gender, String job){
+	public Customer(int customerID, String customerName, String address, int age, String gender, String job){
 		this.customerID = customerID;
 		this.customerName = customerName;
 		this.address = address;
@@ -17,7 +17,7 @@ public class Customer {
 		this.job = job;
 	}
 
-	public String getCustomerID(){return customerID;}
+	public int getCustomerID(){return customerID;}
 	public String getCustomerName(){return customerName;}
 	public String getAddress(){return address;}
 	public int getAge(){return age;}
