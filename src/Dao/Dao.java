@@ -1,22 +1,18 @@
 package Dao;
-
 import java.sql.*;
-
 public class Dao {
     private Connection connect = null;
     private Statement statement = null;
     private ResultSet resultSet = null;
 
-
     public void connect(){
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             connect = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/insurance?serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true", "root", "ok3036934");
+                    "jdbc:mysql://localhost:3306/bunsan?serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true", "root", "Q12345678@");
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
     public void create(String query){
 
@@ -38,7 +34,6 @@ public class Dao {
         return resultSet;
     }
     public void update(String query){
-
         try {
             statement = connect.createStatement();
             if(!statement.execute(query))
@@ -46,7 +41,6 @@ public class Dao {
         } catch (SQLException e) {
             System.out.println("저장에 실패했습니다. 다시 시도해주세요.");
         }
-
     }
     public void delete(String query){
         try {

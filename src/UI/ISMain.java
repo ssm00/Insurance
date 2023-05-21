@@ -1,21 +1,17 @@
 package UI;
 
-import Dao.ContractDao;
-import Dao.CustomerDao;
-import Dao.SaleDao;
+import Dao.*;
 import compensation.CompensationListImpl;
 import contract.Contract;
 import contract.ContractListImpl;
 import customer.Customer;
 import customer.CustomerListImpl;
 import insurance.Insurance;
-import insurance.InsuranceList;
 import insurance.InsuranceListImpl;
 import insurance.PremiumRate;
 import sales.Sale;
 import sales.SalesListImpl;
 import utils.*;
-import uw.LossRate;
 import uw.UW;
 
 import java.io.BufferedReader;
@@ -41,10 +37,12 @@ public class ISMain {
     ContractDao contractDao;
     SaleDao saleDao;
     CustomerDao customerDao;
+    InsuranceDao insuranceDao;
+    PremiumRateDao premiumRateDao;
     public ISMain() {
         insuranceList = new InsuranceListImpl();
-        insuranceList.add(new Insurance(1, "dddd", 2, "AAA", 111, "보험1"));
-        insuranceList.add(new Insurance(2, "dddd", 3, "BBB", 123, "보험2"));
+        //insuranceList.add(new Insurance(1, "dddd", 2, "AAA", 111, "보험1"));
+        //insuranceList.add(new Insurance(2, "dddd", 3, "BBB", 123, "보험2"));
 
         customerListImpl = new CustomerListImpl();
         customerListImpl.add(new Customer(1,"김범준","용인",24,"남자","무직"));
@@ -65,6 +63,11 @@ public class ISMain {
         saleDao = new SaleDao();
         customerDao = new CustomerDao();
         compensationList = new CompensationListImpl();
+
+        insuranceDao = new InsuranceDao();
+        premiumRateDao = new PremiumRateDao();
+        premiumRateDao.create(new PremiumRate(123,"암1",33,"암",3333));
+        //insuranceDao.create(new Insurance("1번",123,"암보험1", 123,"암",133););
     }
 
     public static void main(String[] args) throws NotBoundException, IOException {
@@ -115,6 +118,7 @@ public class ISMain {
                         manageCustomers(objectReader);
                         break;
                     case "2":
+                        registerCustomer(objectReader);
                         registerCustomer(objectReader);
                         break;
                     case "3":
@@ -186,17 +190,15 @@ public class ISMain {
                 switch (choiceInsuranceMenu) {
                     case "1":
                         Insurance insurance = createInsurance(objectReader);
+                        insurance.calculateRate();
                         printPremiunRate(insurance.getPremiumRate());
-                        authorizeInsurance(objectReader, insuranceList, insurance);
+                        authorizeORSave(objectReader, insurance);
                         break;
                     case "2":
                         showPremiumRateMenu(objectReader);
                         break;
                     case "3":
-                        showInsuranceList(insuranceList);
-                        Integer choiceNumber1 = readIntegerInput(objectReader, "상품번호를 입력해주세요");
-                        Insurance choiceInsurance1 = insuranceList.getInsuranceList().get(choiceNumber1 - 1);
-                        choiceInsurance1.authorize(objectReader);
+                        authorizeInsurance(objectReader);
                         break;
                     case "x":
                         return;
@@ -204,9 +206,7 @@ public class ISMain {
                         throw new InvalidInputException("입력은 1,2,3중 하나 입니다.");
                 }
                 break;
-            } catch (InvalidInputException | EmptyValueException e) {
-                System.out.println(e.getMessage());
-            } catch (ConnectErrorException e) {
+            } catch (InvalidInputException | EmptyValueException | ConnectErrorException e) {
                 System.out.println(e.getMessage());
             }
         }
@@ -216,12 +216,13 @@ public class ISMain {
         System.out.println("1. 상품 리스트");
         System.out.println("2. 직접 산출");
         String choiceInsuranceMenu = objectReader.readLine().trim();
-        if (choiceInsuranceMenu.equals(1)) {
-            showInsuranceList(insuranceList);
+        if (choiceInsuranceMenu.equals("1")) {
+            showInsuranceList();
             Integer choiceNumber = readIntegerInput(objectReader, "상품번호를 입력해주세요");
             Insurance choiceInsurance = insuranceList.getInsuranceList().get(choiceNumber - 1);
+            choiceInsurance.calculateRate();
             printPremiunRate(choiceInsurance.getPremiumRate());
-        } else if (choiceInsuranceMenu.equals(2)) {
+        } else if (choiceInsuranceMenu.equals("2")) {
             Integer coverageAmount = readIntegerInput(objectReader, "보장금액: ");
             Integer coveragePeriod = readIntegerInput(objectReader, "보장기간: ");
             System.out.print("보장대상: ");
@@ -239,25 +240,25 @@ public class ISMain {
     }
 
     private
-    void showInsuranceList(InsuranceListImpl insuranceList) {
+    void showInsuranceList() {
         int cnt = 1;
-        for (Insurance insurance : insuranceList.getInsuranceList()) {
+        for (Insurance insurance : insuranceDao.retrieveAll().getInsuranceList()) {
             System.out.println(cnt+" :  "+" Name : "+insurance.getInsuranceName());
             cnt++;
         }
     }
 
-    private void authorizeInsurance(BufferedReader objectReader, InsuranceListImpl insuranceList, Insurance insurance) throws IOException, EmptyValueException {
+    private void authorizeORSave(BufferedReader objectReader, Insurance insurance) throws IOException, EmptyValueException {
         while (true) {
             System.out.println("1. 상품 인가");
             System.out.println("2. 상품 임시저장");
             String authorizeChoice =  objectReader.readLine().trim();
             try {
                 if(authorizeChoice.equals("1")) {
-                    boolean authorized = insurance.authorize(objectReader);
+                    boolean authorized = insurance.authorize("1");
                     if (authorized) {
-                        insuranceList.add(insurance);
-                        System.out.println("authorized = " + authorized);
+                        System.out.println("상품이 인가되었습니다");
+                        insuranceDao.create(insurance);
                     }
                     break;
                 }
@@ -265,7 +266,7 @@ public class ISMain {
                     System.out.print("임시 상품명: ");
                     String temporalName = objectReader.readLine().trim();
                     insurance.setInsuranceName(temporalName);
-                    insuranceList.add(insurance);
+                    insuranceDao.create(insurance);
                     System.out.print("임시저장이 완료되었습니다.");
                     break;
                 } else {
@@ -276,6 +277,17 @@ public class ISMain {
             } catch (ConnectErrorException e) {
                 System.out.println(e.getMessage());
             }
+        }
+    }
+
+    public void authorizeInsurance(BufferedReader objectReader) throws InvalidInputException, IOException, EmptyValueException, ConnectErrorException {
+        showInsuranceList();
+        Integer choiceNumber = readIntegerInput(objectReader, "상품번호를 입력해주세요");
+        Insurance choiceInsurance = insuranceList.getInsuranceList().get(choiceNumber - 1);
+        boolean authorize = choiceInsurance.authorize("1");
+        if (authorize) {
+            System.out.println("상품이 인가되었습니다");
+            insuranceDao.create(choiceInsurance);
         }
     }
 
@@ -292,7 +304,10 @@ public class ISMain {
                 System.out.print("보험명: ");
                 String insuranceName = objectReader.readLine().trim();
                 validateInsuranceInput(coverageTarget, coverageEvent, coverageAmount, coveragePeriod, insuranceFee, insuranceName);
-                return new Insurance(coverageAmount, coverageEvent, coveragePeriod, coverageTarget, insuranceFee, insuranceName);
+                Insurance insurance = new Insurance(insuranceName, coverageAmount, coverageEvent, coveragePeriod, coverageTarget, insuranceFee);
+                insurance.calculateRate();
+                premiumRateDao.create(insurance.getPremiumRate());
+                return insurance;
             } catch (InvalidInputException | EmptyValueException e) {
                 System.out.println(e.getMessage());
             }
@@ -390,7 +405,7 @@ public class ISMain {
     private void uwStarted(BufferedReader objectReader) throws RemoteException, IOException, InvalidInputException {
     	
     	
-    	showInsuranceList(insuranceList);
+    	showInsuranceList();
    
         Integer choiceNumber = readIntegerInput(objectReader, "상품번호를 입력해주세요");
         Insurance choiceInsurance = insuranceList.getInsuranceList().get(choiceNumber - 1);
