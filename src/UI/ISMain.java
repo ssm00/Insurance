@@ -84,7 +84,7 @@ public class ISMain {
         contractDao = new ContractDao();
         saleDao = new SaleDao();
         customerDao = new CustomerDao();
-        compensationList = new CompensationListImpl();
+        //compensationList = new CompensationListImpl();
 
         insuranceDao = new InsuranceDao();
         premiumRateDao = new PremiumRateDao();
@@ -983,14 +983,6 @@ public class ISMain {
      * -------------------------------------------------------------------------------------
      */
 
-
-    private void printMenu() {
-        System.out.println("*********************MENU********************");
-        System.out.println("1. 계약");
-        System.out.println("2. 보상");
-        System.out.println("3. 마케팅");
-        System.out.println("x. 종료하기");
-    }
     private
     void showList(ArrayList<?> dataList) throws RemoteException {
         String list = "";
