@@ -1,17 +1,24 @@
 package demand;
 import utils.EmptyValueException;
 
-import java.util.UUID;
 public class Demand {
 	private int accidentDate;
-	private int accidentType;
+	private String accidentType;
 	private int copyofIdentification;
 	private String details;
 	private String diagnosis;
 	private int documentaryEvidence;
 	private String treatmentHospital;
 	private String demandId;
-	public Demand(int accidentDate,int accidentType, int copyofIdentification, String details, String diagnosis, int documentaryEvidence, String treatmentHospital) {
+	private String customerName;
+	private String accountNumber;
+	private String bank;
+	private String information;
+	public Demand(String demandId, int accidentDate, String accidentType,
+	            int copyofIdentification, String details, String diagnosis, 
+			    int documentaryEvidence, String treatmentHospital,
+				String customerName, String accountNumber, String bank, 
+				String information) {
 		this.accidentDate = accidentDate;
 		this.accidentType = accidentType;
 		this.copyofIdentification = copyofIdentification;
@@ -19,12 +26,16 @@ public class Demand {
 		this.diagnosis = diagnosis;
 		this.documentaryEvidence = documentaryEvidence;
 		this.treatmentHospital = treatmentHospital;
-		this.demandId = UUID.randomUUID().toString();
+		this.demandId = demandId;
+		this.customerName = customerName;
+		this.accountNumber = accountNumber;
+		this.bank = bank;
+		this.information = information;
 	}
 	public boolean demand() throws EmptyValueException {
 		if (accidentDate == 0) {
 			throw new EmptyValueException("사고 일자 정보가 누락되었습니다.");
-		} else if (accidentType == 0) {
+		} else if (accidentType == null) {
 			throw new EmptyValueException("사고 유형 정보가 누락되었습니다.");
 		} else if (diagnosis == null) {
 			throw new EmptyValueException("진단명 정보가 누락되었습니다.");
@@ -45,10 +56,10 @@ public class Demand {
 	public void setAccidentDate(int accidentDate) {
 		this.accidentDate = accidentDate;
 	}
-	public int getAccidentType() {
+	public String getAccidentType() {
 		return accidentType;
 	}
-	public void setAccidentType(int accidentType) {
+	public void setAccidentType(String accidentType) {
 		this.accidentType = accidentType;
 	}
 	public int getCopyofIdentification() {
@@ -86,5 +97,29 @@ public class Demand {
 	}
 	public void setDemandId(String demandId) {
 		this.demandId = demandId;
+	}
+	public String getCustomerName() {
+		return customerName;
+	}
+	public void setCustomerName(String customerName) {
+		this.customerName = customerName;
+	}
+	public String getAccountNumber() {
+		return accountNumber;
+	}
+	public void setAccountNumber(String accountNumber) {
+		this.accountNumber = accountNumber;
+	}
+	public String getBank() {
+		return bank;
+	}
+	public void setBank(String bank) {
+		this.bank = bank;
+	}
+	public String getInformation() {
+		return information;
+	}
+	public void setInformation(String information) {
+		this.information = information;
 	}
 }

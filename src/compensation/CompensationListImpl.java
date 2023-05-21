@@ -1,25 +1,21 @@
 package compensation;
 
-import customer.CustomerList;
-
 import java.util.ArrayList;
 public class CompensationListImpl implements CompensationList {
-
-    private ArrayList<Compensation> compensationList;
-
+    protected ArrayList<Compensation> compensationList;
     public CompensationListImpl(){
-
+        compensationList = new ArrayList<Compensation>();
     }
-
-    public boolean add(){
+    public boolean add(Compensation compensation){
+        if(compensationList.add(compensation)) return true;
         return false;
     }
-
-    public boolean delete(){
+    public boolean delete(Compensation compensation){
+        if(compensationList.remove(compensation)) return true;
         return false;
     }
     public ArrayList<Compensation> retrieve(){
-        return null;
+        return compensationList;
     }
     public boolean update(){
         // update compensationList

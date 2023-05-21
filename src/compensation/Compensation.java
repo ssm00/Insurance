@@ -1,53 +1,19 @@
 package compensation;
-<<<<<<< HEAD
-
-import java.util.StringTokenizer;
 
 public class Compensation {
 	private String compensationMoney;
-	private String condition;
-	private String evaluation;
-	String compensationId;
-
-	public Compensation(String compensationDetail){
-		StringTokenizer stringTokenizer = new StringTokenizer(compensationDetail);
-    	this.compensationId = stringTokenizer.nextToken();
-    	this.compensationMoney = stringTokenizer.nextToken();
-    	this.condition = stringTokenizer.nextToken();
-    	this.evaluation = stringTokenizer.nextToken();
-	}
-
-	public boolean authorize(String condition){
-		if (this.condition != null) {
-			this.condition = condition;
-			return true;
-		}		
-		else return false;
-	}
-
-	public boolean examine(String evaluation){
-		if (this.evaluation != null) {
-			this.evaluation = evaluation;
-			return true;
-		}		
-		else return false;	}
-
-=======
-import java.util.UUID;
-public class Compensation {
-	private String compensationMoney;
-	private int condition;
+	private int damage;
 	private int evaluation;
 	private String compensationId;
-	public Compensation(String compensationMoney, int condition, int evaluation){
+	public Compensation(String compensationId, String compensationMoney, int damage, int evaluation){
 		this.compensationMoney = compensationMoney;
-		this.condition = condition;
+		this.damage = damage;
 		this.evaluation = evaluation;
-		this.compensationId = UUID.randomUUID().toString();
+		this.compensationId = compensationId;
 	}
-	public boolean authorize(int condition){
-		if (this.condition <= 1) {
-			this.condition = condition;
+    public boolean authorize(int condition){
+		if (this.damage <= 1) {
+			this.damage = condition;
 			return true;
 		}
 		else return false;
@@ -59,24 +25,10 @@ public class Compensation {
 		}
 		else return false;
 	}
->>>>>>> ecdb0ccc5b28034294bfc0191bc661cacd0fcc9e
 	public boolean remit(String compensationMoney){
 		if (this.compensationMoney != null) {
 			this.compensationMoney = compensationMoney;
 			return true;
-<<<<<<< HEAD
-		}		
-		else return false;	}
-
-	// public boolean terminate(){
-	// 	if (this.condition != null) {
-	// 		this.condition = condition;
-	// 		return true;
-	// 	}		
-	// 	else return false;	}
-
-}
-=======
 		}
 		else return false;
 	}
@@ -94,11 +46,11 @@ public class Compensation {
 	public void setCompensationMoney(String compensationMoney) {
 		this.compensationMoney = compensationMoney;
 	}
-	public int getCondition() {
-		return condition;
+	public int getDamage() {
+		return damage;
 	}
-	public void setCondition(int condition) {
-		this.condition = condition;
+	public void setDamage(int condition) {
+		this.damage = condition;
 	}
 	public int getEvaluation() {
 		return evaluation;
@@ -113,4 +65,3 @@ public class Compensation {
 		this.compensationId = compensationId;
 	}
 }
->>>>>>> ecdb0ccc5b28034294bfc0191bc661cacd0fcc9e
