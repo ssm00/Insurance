@@ -3,11 +3,10 @@ package insurance;
 import utils.InvalidInputException;
 
 public class PremiumRate {
-
+	private int premiumRateID;
 	private float accidentRate;
 	private float expectedProfitRate;
 	private float rate;
-
 	public PremiumRate(int coverageAmount, String coverageEvent, int coveragePeriod, String coverageTarget, int insuranceFee) {
 		final float COVERAGE_AMOUNT_MULTIPLIER = 0.0005f;
 		final float COVERAGE_PERIOD_MULTIPLIER = 0.002f;
@@ -18,11 +17,16 @@ public class PremiumRate {
 		this.expectedProfitRate = insuranceFee * INSURANCE_FEE_MULTIPLIER;
 	}
 
+	public PremiumRate(int premiumRateID, float accidentRate, float expectedProfitRate, float rate) {
+		this.premiumRateID = premiumRateID;
+		this.accidentRate = accidentRate;
+		this.expectedProfitRate = expectedProfitRate;
+		this.rate = rate;
+	}
 	public float calculate(){
 		rate = (float) ((accidentRate * 20) + (expectedProfitRate * 10));
 		return rate;
 	}
-
 	public boolean update(float accidentRate, float expectedProfitRate) throws InvalidInputException {
 		if (accidentRate < 0 || expectedProfitRate < 0) {
 			throw new InvalidInputException("잘못된 입력입니다.");
@@ -30,5 +34,18 @@ public class PremiumRate {
 		this.accidentRate = accidentRate;
 		this.expectedProfitRate = expectedProfitRate;
 		return true;
+	}
+	public int getPremiumRateID() {
+		return premiumRateID;
+	}
+
+	public float getAccidentRate() {
+		return accidentRate;
+	}
+	public float getExpectedProfitRate() {
+		return expectedProfitRate;
+	}
+	public float getRate() {
+		return rate;
 	}
 }
