@@ -7,20 +7,18 @@ public class DemandListImpl implements DemandList {
 	public DemandListImpl(){
 		this.demandList = new ArrayList<Demand>();
 	}
-	public ArrayList<Demand> getAllDemandList() {
-		return this.demandList;
-	}
-	public boolean add(){
-		if (this.demandList.add(new Demand(0, 0, 0, null, null, 0, null))) return true;
+	public boolean add(Demand demand){
+		if (this.demandList.add(demand)) return true;
 		else return false;
 	}
 
-	public boolean delete(){
-		return false;
+	public boolean delete(Demand demand){
+		if (this.demandList.remove(demand)) return true;
+		else return false;
 	}
 
 	public ArrayList<Demand> retrieve(){
-		return null;
+		return demandList;
 	}
 
 	public boolean update(){

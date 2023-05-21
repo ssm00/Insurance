@@ -1,11 +1,18 @@
 package UI;
 
+
+import compensation.Compensation;
+import compensation.CompensationList;
+
 import Dao.*;
+
 import compensation.CompensationListImpl;
 import contract.Contract;
 import contract.ContractListImpl;
 import customer.Customer;
 import customer.CustomerListImpl;
+import demand.Demand;
+import demand.DemandListImpl;
 import insurance.Insurance;
 import insurance.InsuranceListImpl;
 import insurance.PremiumRate;
@@ -25,6 +32,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.security.sasl.AuthorizeCallback;
+
 public class ISMain {
     CustomerListImpl customerListImpl;
     ArrayList<Customer> customerList;
@@ -32,7 +41,10 @@ public class ISMain {
     ArrayList<Contract> contractList;
     SalesListImpl salesListImpl;
     ArrayList<Sale> saleList;
-    CompensationListImpl compensationList;
+    CompensationListImpl compensationListImpl;
+    ArrayList<Compensation> compensationList;
+    DemandListImpl demandListImpl;
+    ArrayList<Demand> demandList;
     InsuranceListImpl insuranceList;
     ContractDao contractDao;
     SaleDao saleDao;
@@ -59,6 +71,16 @@ public class ISMain {
         salesListImpl.add(new Sale(3,"asdfgh",12121, new Date()));
         saleList = salesListImpl.retrieve();
 
+
+        compensationListImpl = new CompensationListImpl();
+        compensationListImpl.add(new Compensation("2401", "343000", 8480000, 7));
+        compensationListImpl.add(new Compensation("2408", "211000", 4450000, 9));
+        compensationListImpl.add(new Compensation("2580", "747000", 12800000, 3));
+        compensationList = compensationListImpl.retrieve();
+
+        demandListImpl = new DemandListImpl();
+        demandListImpl.add(new Demand("6656", 20050111, "교통사고", 0, "사고내용 1", "복합골절", 1, "서울대학교병원", "지영호", "4568542381658", "외국은행", "본인"));
+
         contractDao = new ContractDao();
         saleDao = new SaleDao();
         customerDao = new CustomerDao();
@@ -68,6 +90,7 @@ public class ISMain {
         premiumRateDao = new PremiumRateDao();
         premiumRateDao.create(new PremiumRate(123,"암1",33,"암",3333));
         //insuranceDao.create(new Insurance("1번",123,"암보험1", 123,"암",133););
+
     }
 
     public static void main(String[] args) throws NotBoundException, IOException {
@@ -99,10 +122,35 @@ public class ISMain {
     }
 
     private void printCompensationMenu(BufferedReader objectReader) {
-        System.out.println("1. 보상관리");
-        System.out.println("2. 보상평가");
-        System.out.println("3. 손해조사");
-        System.out.println("4. 보상심사");
+        try {
+            while (true) {
+                System.out.println("1. 보상관리");
+                System.out.println("2. 보상평가");
+                System.out.println("3. 손해조사");
+                System.out.println("4. 보상심사");
+                System.out.println("x. 나가기");
+                String userInput = objectReader.readLine().trim();
+                switch (userInput) {
+                    case "1":
+                        manageCompensation(objectReader);
+                        break;
+                    case "2":
+                        examineCompensation(objectReader);
+                        break;
+                    case "3":
+                        investigateDamage(objectReader);
+                        break;
+                    case "4":
+                        evaluateCompensation(objectReader);
+                    case "x":
+                        return;
+                    default:
+                        System.out.println("Invaild choice !!!");
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     private void printMarketingMenu(BufferedReader objectReader) {
@@ -625,4 +673,332 @@ public class ISMain {
             System.out.println("-------------------------------------------------------------");
             ++count;}
     }
+
+//     //인수심사
+//     private void underWriting(BufferedReader objectReader) {
+
+
+//         UW uw = new UW();
+//         System.out.println("인수 심사를 진행합니다.");
+
+//         System.out.println("--청약서 확인.--");
+//         uw.setApplicationForm(true);
+//         System.out.println("--증권 확인.--");
+//         uw.setSecurity(true);
+
+//         uw.underWriting(); //자동심사, return true;
+//         if (uw.underWriting()) {
+//             System.out.println("심사가 성공했습니다.");
+//         }
+//         else
+//             System.out.println("심사에 실패했습니다.");
+
+
+//         //인수 여부 확인?
+
+//     }
+
+//     //재보험 처리
+//     private void calculateReinsuranceFee(BufferedReader objectReader) {
+
+
+//         UW uw = new UW();
+
+//         System.out.println("재보험 처리를 진행합니다.");
+
+//         //재보험 처리
+//         if(uw.Reinsurance()) {
+//             System.out.println("재보험 승인에 성공했습니다.");
+//             System.out.println("재보험료 : " + uw.calculateReinsuranceFee());
+//         }
+//         else
+//             System.out.println("재보험 승인에 실패했습니다.");
+
+
+//     }
+
+//     //손해율관리
+//     private void calculateLossRate(BufferedReader objectReader) {
+
+//         LossRate lossRate = new LossRate();
+
+//         System.out.println("계산을 위한 데이터를 입력해주세요.");
+//         System.out.println("사고 종류 : ");
+//         String accidentType = null;
+//         try {
+//             accidentType = objectReader.readLine().trim();
+//         } catch (IOException e) {
+//             e.printStackTrace();
+//         }
+//         lossRate.setAccidentType(accidentType);
+
+//         System.out.println("보상 한도 : ");
+//         int coverageLimit = 0;
+//         try {
+//             coverageLimit = Integer.parseInt(objectReader.readLine());
+//             //objectReader.readLine().trim();
+//         } catch (IOException e) {
+//             e.printStackTrace();
+//         }
+//         lossRate.setCoverageLimit(coverageLimit);
+
+//         System.out.println("보험료 : ");
+//         int insuranceFee = 0;
+//         try {
+//             insuranceFee = Integer.parseInt(objectReader.readLine());
+//         } catch (IOException e) {
+//             e.printStackTrace();
+//         }
+//         lossRate.setInsuranceFee(insuranceFee);
+
+//         System.out.println("지급된 보상액 : ");
+//         int paedAmount = 0;
+//         try {
+//             paedAmount = Integer.parseInt(objectReader.readLine());
+//         } catch (IOException e) {
+//             e.printStackTrace();
+//         }
+//         lossRate.setPaidAmount(paedAmount);
+
+//         //계산..
+//         lossRate.calculateLossRate();
+
+//         System.out.println("계산된 손해액 : " + lossRate.getLossRate());
+
+//     }
+
+    /**
+     * ---------------------------------------------------------------------------
+     * @throws ConnectErrorException
+     * @throws IOException
+     * @throws EmptyValueException
+     */
+    private void evaluateCompensation(BufferedReader objectReader) throws ConnectErrorException, IOException, EmptyValueException {
+        try {
+            showCompensationList();
+            System.out.println("===========보상 심사============");
+        } catch (ConnectErrorException e) {
+            System.out.println(e.getMessage());
+        }
+        System.out.println("\n원하는 보상의 번호를 입력하시오: ");
+        String compensationNumber = objectReader.readLine().trim();
+        Compensation selectedCompensation = compensationList.get(Integer.parseInt(compensationNumber) - 1);
+        try {
+            System.out.println("\n=============선택된 보상============");
+            System.out.println("보상금: " + selectedCompensation.getCompensationMoney());
+            System.out.println("손해액: " + selectedCompensation.getDamage());
+        } catch (NullPointerException e) {
+            throw new EmptyValueException("해당 자동차 보험에 대하여 산정된 보상 내역이 존재하지 않습니다.");
+        }
+        System.out.println("1. 결제 요청");
+        System.out.println("x. 취소");
+        String userInput = objectReader.readLine().trim();
+        switch (userInput) {
+            case "1":
+                confirm(objectReader, selectedCompensation);
+                break;
+            case "x":
+                return;
+            default:
+                System.out.println("잘못된 입력입니다.");
+        }
+    }
+
+    private void confirm(BufferedReader objectReader, Compensation selectedCompensation) throws IOException, ConnectErrorException, EmptyValueException {
+        System.out.println("해당 자동차 보험에 대한 심사 결재를 요청드립니다.");
+        System.out.println("-------------------------------------------------------------");
+        System.out.println("보상 ID: " + selectedCompensation.getCompensationId());
+        System.out.println("보상금: " + selectedCompensation.getCompensationMoney());
+        System.out.println("손해액: " + selectedCompensation.getDamage());
+        System.out.println("1. 심사 승인 후 결재 확인");
+        System.out.println("2. 거절");
+        System.out.println("x. 취소");
+        String userInput = objectReader.readLine().trim();
+        switch (userInput) {
+            case "1":
+            System.out.println("보상 심사가 완료되었습니다. 확인 부탁드립니다.");
+                payCompensation(objectReader);
+                break;
+            case "2":             
+                System.out.println("보상 심사가 거절되었습니다.");
+            case "x":
+                return;
+            default:
+                System.out.println("잘못된 입력입니다.");
+        }
+    }
+
+    private void payCompensation(BufferedReader objectReader) throws ConnectErrorException, IOException {
+        System.out.println("==========보상금 지급===========");
+        Demand demand = demandList.get(0);
+        System.out.println("고객명" + demand.getCustomerName());
+        System.out.println("계좌번호" + demand.getAccountNumber());
+        System.out.println("은행명" + demand.getBank());
+        System.out.println("예금주 정보" + demand.getInformation());
+        System.out.println("1. 보상금 지급");
+        System.out.println("x. 취소");
+        String userInput = objectReader.readLine().trim();
+        if (userInput == "1") {
+            System.out.println("청구된 보상금이 입금되었습니다.");
+            return;
+        }
+        if (userInput == "x") {
+            System.out.println("모든 변경 사항을 취소합니다.\n확인");
+            return;
+        }
+    }
+
+    private void investigateDamage(BufferedReader objectReader) throws ConnectErrorException, IOException {
+        System.out.println("==============손해 조사===============");
+        int count = 1;
+        System.out.println("-------------접수 목록--------------");
+        try {
+            for (Demand demand: demandList) {
+                System.out.println(count + ". ");
+                System.out.println("ID: " + demand.getDemandId());
+                System.out.println("고객 이름: " + demand.getCustomerName());
+                System.out.println("사고 유형: " + demand.getAccidentType());
+                System.out.println("사고 날짜(yyyymmdd): " + demand.getAccidentDate());
+                System.out.println("진단명: " + demand.getDiagnosis());
+                System.out.println("치료 병원: " + demand.getTreatmentHospital());
+                System.out.println("###############################################\n");
+                ++count;
+            }
+        } catch (NullPointerException e) {
+            throw new ConnectErrorException("시스템에 장애가 발생하였습니다. 관리자에게 문의하십시오.");
+        }
+        System.out.println("지급책임이 있습니까?");
+        System.out.println("1. 예");
+        System.out.println("2. 아니오");
+        String userInput = objectReader.readLine().trim();
+        if (userInput == "1") {
+            System.out.println("지급 금액을 입력하십시오");
+            String compensation = objectReader.readLine().trim();
+            System.out.println(compensation + "원을 지급합니다.");
+            System.out.println("신청하신 사고 내역의 손해 조사 및 보험금 산정이 완료되었습니다.");
+            return;
+        }
+        if (userInput == "2") {
+            System.out.println("지급 불가 사유를 입렧하십시오");
+            String denial = objectReader.readLine().trim();
+            System.out.println(denial + " 사유로 인하여 보험금 지급이 불가합니다.");
+            return;
+        }
+    }
+
+    private void examineCompensation(BufferedReader objectReader) throws ConnectErrorException, IOException {
+        System.out.println("==============보상 평가===============");
+        showCompensationList();
+        System.out.println("\n평가할 보상의 번호를 입력하시오: ");
+        String compensationNumber = objectReader.readLine().trim();
+        Compensation selectedCompensation = compensationList.get(Integer.parseInt(compensationNumber) - 1);
+        System.out.println("\n=============선택된 보상, 변경 전============");
+        System.out.println("점수: " + selectedCompensation.getEvaluation());
+        System.out.println("점수를 입력하십시오.(0~10)");
+        int newEvaluation = Integer.parseInt(objectReader.readLine().trim());
+        if (newEvaluation <= 10 && newEvaluation >= 0) {
+            compensationList.set(Integer.parseInt(compensationNumber) - 1, 
+                                new Compensation(selectedCompensation.getCompensationId(), selectedCompensation.getCompensationMoney(),
+                                selectedCompensation.getDamage(), newEvaluation));
+                                System.out.println("평가 완료.");
+        } else {
+            System.out.println("유효하지 않은 입력입니다.");
+        }
+    }
+
+    private void manageCompensation(BufferedReader objectReader) throws ConnectErrorException, IOException {
+        System.out.println("==============보상 관리===============");
+        showCompensationList();
+        System.out.println("\n==============원하시는 작업을 선택하시오.===============");
+        System.out.println("1. 보상 수정");
+        System.out.println("2. 보상 폐기");
+        System.out.println("x. 나가기");
+        String userInput = objectReader.readLine().trim();
+        switch (userInput) {
+            case "1":
+                editCompensation(objectReader);
+                System.out.println("수정 완료");
+                showCompensationList();
+                break;
+            case "2":
+                deleteCompensation(objectReader);
+                System.out.println("폐기 완료");
+                showCompensationList();
+                break;
+            case "x":
+                return;
+            default:
+                System.out.println("잘못된 입력입니다.");
+        }
+    }
+    private void editCompensation(BufferedReader objectReader) throws IOException, ConnectErrorException {
+        System.out.println("\n관리할 보상의 번호를 입력하시오: ");
+        String compensationId = objectReader.readLine().trim();
+        Compensation selectedCompensation = compensationList.get(Integer.parseInt(compensationId) - 1);
+        System.out.println("\n=============선택된 보상, 변경 전============");
+        System.out.println("보상금: " + selectedCompensation.getCompensationMoney());
+        System.out.println("손해액: " + selectedCompensation.getDamage());
+        System.out.println("\n=============선택된 보상, 변경 후============");
+        System.out.println("보상금: ");
+        String newCompensationMoney = objectReader.readLine().trim();
+        System.out.println("손해액: ");
+        int newDamage = Integer.parseInt(objectReader.readLine().trim());
+        System.out.println("1. 수정");
+        System.out.println("2. 취소");
+        String userInput = objectReader.readLine().trim();
+        if (userInput == "1") {
+            compensationList.set(Integer.parseInt(compensationId) - 1, 
+                                new Compensation(selectedCompensation.getCompensationId(), newCompensationMoney,
+                                newDamage, selectedCompensation.getEvaluation()));
+            return;
+        }
+        if (userInput == "2") {
+            System.out.println("모든 변경 사항을 취소합니다.\n확인");
+            manageCompensation(objectReader);
+            return;
+        }
+    }
+    private void deleteCompensation(BufferedReader objectReader) throws IOException {
+        System.out.println("\n폐기할 보상의 번호를 입력하시오: ");
+        String compensationId = objectReader.readLine().trim();
+        compensationList.remove(Integer.parseInt(compensationId) - 1);
+    }
+    private void showCompensationList() throws ConnectErrorException {
+        int count = 1;
+        System.out.println("-------------보상 목록--------------");
+        try {
+            for (Compensation compensation: compensationList) {
+                System.out.println(count + ". ");
+                System.out.println("보상 ID: " + compensation.getCompensationId());
+                System.out.println("보상금: " + compensation.getCompensationMoney());
+                System.out.println("손해액: " + compensation.getCompensationId());
+                System.out.println("###############################################\n");
+                ++count;
+            }
+        } catch (NullPointerException e) {
+            throw new ConnectErrorException("불러오기에 실패했습니다.\n확인");
+        }
+    }
+    /**
+     * -------------------------------------------------------------------------------------
+     */
+
+
+    private void printMenu() {
+        System.out.println("*********************MENU********************");
+        System.out.println("1. 계약");
+        System.out.println("2. 보상");
+        System.out.println("3. 마케팅");
+        System.out.println("x. 종료하기");
+    }
+    private
+    void showList(ArrayList<?> dataList) throws RemoteException {
+        String list = "";
+        for(int i=0; i<dataList.size(); i++) {
+            list += dataList.get(i) + "\n";
+        }
+        System.out.println(list);
+    }
+
+
 }

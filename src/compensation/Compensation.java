@@ -1,19 +1,19 @@
 package compensation;
-import java.util.UUID;
+
 public class Compensation {
 	private String compensationMoney;
-	private int condition;
+	private int damage;
 	private int evaluation;
 	private String compensationId;
-	public Compensation(String compensationMoney, int condition, int evaluation){
+	public Compensation(String compensationId, String compensationMoney, int damage, int evaluation){
 		this.compensationMoney = compensationMoney;
-		this.condition = condition;
+		this.damage = damage;
 		this.evaluation = evaluation;
-		this.compensationId = UUID.randomUUID().toString();
+		this.compensationId = compensationId;
 	}
-	public boolean authorize(int condition){
-		if (this.condition <= 1) {
-			this.condition = condition;
+    public boolean authorize(int condition){
+		if (this.damage <= 1) {
+			this.damage = condition;
 			return true;
 		}
 		else return false;
@@ -46,11 +46,11 @@ public class Compensation {
 	public void setCompensationMoney(String compensationMoney) {
 		this.compensationMoney = compensationMoney;
 	}
-	public int getCondition() {
-		return condition;
+	public int getDamage() {
+		return damage;
 	}
-	public void setCondition(int condition) {
-		this.condition = condition;
+	public void setDamage(int condition) {
+		this.damage = condition;
 	}
 	public int getEvaluation() {
 		return evaluation;
