@@ -23,7 +23,7 @@ public class Insurance {
 	 */
 	private boolean authorizeState;
 
-	public Insurance(int coverageAmount, String coverageEvent, int coveragePeriod, String coverageTarget, int insuranceFee, String insuranceName) throws EmptyValueException{
+	public Insurance(int coverageAmount, String coverageEvent, int coveragePeriod, String coverageTarget, int insuranceFee, String insuranceName){
 		this.coverageAmount = coverageAmount;
 		this.coverageEvent = coverageEvent;
 		this.coveragePeriod = coveragePeriod;

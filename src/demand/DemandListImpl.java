@@ -3,15 +3,16 @@ package demand;
 import java.util.ArrayList;
 
 public class DemandListImpl implements DemandList {
-
-	public Demand m_Demand;
-
+	protected ArrayList<Demand> demandList;
 	public DemandListImpl(){
-
+		this.demandList = new ArrayList<Demand>();
 	}
-
+	public ArrayList<Demand> getAllDemandList() {
+		return this.demandList;
+	}
 	public boolean add(){
-		return false;
+		if (this.demandList.add(new Demand(0, 0, 0, null, null, 0, null))) return true;
+		else return false;
 	}
 
 	public boolean delete(){
