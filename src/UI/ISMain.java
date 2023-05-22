@@ -1,11 +1,10 @@
 package UI;
 
 
-import compensation.Compensation;
-import compensation.CompensationList;
 
 import Dao.*;
 
+import compensation.Compensation;
 import compensation.CompensationListImpl;
 import contract.Contract;
 import contract.ContractListImpl;
@@ -45,6 +44,7 @@ public class ISMain {
     ArrayList<Compensation> compensationList;
     DemandListImpl demandListImpl;
     ArrayList<Demand> demandList;
+    CompensationDao compensationDao;
     InsuranceListImpl insuranceList;
     ContractDao contractDao;
     SaleDao saleDao;
@@ -716,7 +716,7 @@ public class ISMain {
         }
         System.out.println("\n원하는 보상의 번호를 입력하시오: ");
         String compensationNumber = objectReader.readLine().trim();
-        Compensation selectedCompensation = compensationList.get(Integer.parseInt(compensationNumber) - 1);
+        Compensation selectedCompensation = compensationDao.retrieveAll().retrieve().get(Integer.parseInt(compensationNumber) - 1);
         try {
             System.out.println("\n=============선택된 보상============");
             System.out.println("보상금: " + selectedCompensation.getCompensationMoney());
@@ -821,16 +821,14 @@ public class ISMain {
         showCompensationList();
         System.out.println("\n평가할 보상의 번호를 입력하시오: ");
         String compensationNumber = objectReader.readLine().trim();
-        Compensation selectedCompensation = compensationList.get(Integer.parseInt(compensationNumber) - 1);
+        Compensation selectedCompensation = compensationDao.retrieveAll().retrieve().get(Integer.parseInt(compensationNumber) - 1);
         System.out.println("\n=============선택된 보상, 변경 전============");
         System.out.println("점수: " + selectedCompensation.getEvaluation());
         System.out.println("점수를 입력하십시오.(0~10)");
         int newEvaluation = Integer.parseInt(objectReader.readLine().trim());
         if (newEvaluation <= 10 && newEvaluation >= 0) {
-            compensationList.set(Integer.parseInt(compensationNumber) - 1, 
-                                new Compensation(selectedCompensation.getCompensationId(), selectedCompensation.getCompensationMoney(),
-                                selectedCompensation.getDamage(), newEvaluation));
-                                System.out.println("평가 완료.");
+            compensationDao.update(selectedCompensation, new Compensation(selectedCompensation.getCompensationId(), newCompensationMoney,
+            selectedCompensation.getDamage(), newEvaluation));
         } else {
             System.out.println("유효하지 않은 입력입니다.");
         }
@@ -863,7 +861,7 @@ public class ISMain {
     private void editCompensation(BufferedReader objectReader) throws IOException, ConnectErrorException {
         System.out.println("\n관리할 보상의 번호를 입력하시오: ");
         String compensationId = objectReader.readLine().trim();
-        Compensation selectedCompensation = compensationList.get(Integer.parseInt(compensationId) - 1);
+        Compensation selectedCompensation = compensationDao.retrieveAll().retrieve().get(Integer.parseInt(compensationId) - 1);
         System.out.println("\n=============선택된 보상, 변경 전============");
         System.out.println("보상금: " + selectedCompensation.getCompensationMoney());
         System.out.println("손해액: " + selectedCompensation.getDamage());
@@ -876,9 +874,8 @@ public class ISMain {
         System.out.println("2. 취소");
         String userInput = objectReader.readLine().trim();
         if (userInput == "1") {
-            compensationList.set(Integer.parseInt(compensationId) - 1, 
-                                new Compensation(selectedCompensation.getCompensationId(), newCompensationMoney,
-                                newDamage, selectedCompensation.getEvaluation()));
+            compensationDao.update(selectedCompensation, new Compensation(selectedCompensation.getCompensationId(), newCompensationMoney,
+            newDamage, selectedCompensation.getEvaluation()));
             return;
         }
         if (userInput == "2") {
@@ -896,7 +893,7 @@ public class ISMain {
         int count = 1;
         System.out.println("-------------보상 목록--------------");
         try {
-            for (Compensation compensation: compensationList) {
+            for (Compensation compensation: compensationDao.retrieveAll().retrieve()) {
                 System.out.println(count + ". ");
                 System.out.println("보상 ID: " + compensation.getCompensationId());
                 System.out.println("보상금: " + compensation.getCompensationMoney());
