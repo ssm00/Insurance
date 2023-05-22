@@ -23,7 +23,7 @@ public class CompensationDao extends Dao {
         String query = "update compensation set compensationMoney = "+ '\''+ afterCompensation.getCompensationMoney() +'\''+ ","+
                 " damage = " + '\''+ afterCompensation.getDamage() +'\''+ ","+
                 " evaluation = " + afterCompensation.getEvaluation() +","+
-                " where customerID = " + beforeCompensation.getCompensationId() + ";";
+                " where compensationId = " + beforeCompensation.getCompensationId() + ";";
                 
         System.out.println(query);
         super.update(query);
