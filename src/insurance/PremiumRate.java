@@ -7,16 +7,16 @@ public class PremiumRate {
 	private float accidentRate;
 	private float expectedProfitRate;
 	private float rate;
-	public PremiumRate(int coverageAmount, String coverageEvent, int coveragePeriod, String coverageTarget, int insuranceFee) {
+	public PremiumRate(int premiumRateID,int coverageAmount, String coverageEvent, int coveragePeriod, String coverageTarget, int insuranceFee) {
 		final float COVERAGE_AMOUNT_MULTIPLIER = 0.0005f;
 		final float COVERAGE_PERIOD_MULTIPLIER = 0.002f;
 		final float COVERAGE_TARGET_MULTIPLIER = 0.005f;
 		final float INSURANCE_FEE_MULTIPLIER = 0.001f;
+		this.premiumRateID = premiumRateID;
 		this.accidentRate = coverageAmount * COVERAGE_AMOUNT_MULTIPLIER + coveragePeriod * COVERAGE_PERIOD_MULTIPLIER;
 		this.accidentRate += coverageTarget.equals("자동차") ? COVERAGE_TARGET_MULTIPLIER : 0;
 		this.expectedProfitRate = insuranceFee * INSURANCE_FEE_MULTIPLIER;
 	}
-
 	public PremiumRate(int premiumRateID, float accidentRate, float expectedProfitRate, float rate) {
 		this.premiumRateID = premiumRateID;
 		this.accidentRate = accidentRate;
@@ -38,7 +38,6 @@ public class PremiumRate {
 	public int getPremiumRateID() {
 		return premiumRateID;
 	}
-
 	public float getAccidentRate() {
 		return accidentRate;
 	}

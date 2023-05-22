@@ -20,7 +20,4 @@ public class InsuranceListImpl implements InsuranceList {
 	public boolean update(){
 		return false;
 	}
-	public ArrayList<Insurance> getInsuranceList() {
-		return insuranceList;
-	}
 }

@@ -12,7 +12,7 @@ public class LossRate {
     
 
 	//손해액 계산 함수, 계산된 손해액을 lossRate에 저장해야 함
-    public float calculateLossRate(BufferedReader objectReader) throws IOException
+    public float calculateLossRate(BufferedReader objectReader) throws IOException{
         System.out.println("계산을 위한 데이터를 입력해주세요.");
         
         System.out.println("사고 종류 : ");
