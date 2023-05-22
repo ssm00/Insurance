@@ -88,9 +88,8 @@ public class ISMain {
 
         insuranceDao = new InsuranceDao();
         premiumRateDao = new PremiumRateDao();
-        premiumRateDao.create(new PremiumRate(123,"암1",33,"암",3333));
-        //insuranceDao.create(new Insurance("1번",123,"암보험1", 123,"암",133););
-
+        //premiumRateDao.create(new PremiumRate(123,"암1",33,"암",3333));
+        //insuranceDao.create(new Insurance("1번",123,"암보험1", 123,"암",133));
     }
 
     public static void main(String[] args) throws NotBoundException, IOException {
@@ -238,8 +237,6 @@ public class ISMain {
                 switch (choiceInsuranceMenu) {
                     case "1":
                         Insurance insurance = createInsurance(objectReader);
-                        insurance.calculateRate();
-                        printPremiunRate(insurance.getPremiumRate());
                         authorizeORSave(objectReader, insurance);
                         break;
                     case "2":
@@ -267,7 +264,7 @@ public class ISMain {
         if (choiceInsuranceMenu.equals("1")) {
             showInsuranceList();
             Integer choiceNumber = readIntegerInput(objectReader, "상품번호를 입력해주세요");
-            Insurance choiceInsurance = insuranceList.getInsuranceList().get(choiceNumber - 1);
+            Insurance choiceInsurance = insuranceDao.retrieveAll().retrieve().get(choiceNumber - 1);
             choiceInsurance.calculateRate();
             printPremiunRate(choiceInsurance.getPremiumRate());
         } else if (choiceInsuranceMenu.equals("2")) {
@@ -278,7 +275,7 @@ public class ISMain {
             System.out.print("보장사건: ");
             String coverageEvent = objectReader.readLine().trim();
             Integer insuranceFee = readIntegerInput(objectReader, "보험료: ");
-            PremiumRate premiumRate = new PremiumRate(coverageAmount, coverageEvent, coveragePeriod, coverageTarget, insuranceFee);
+            PremiumRate premiumRate = new PremiumRate(1,coverageAmount, coverageEvent, coveragePeriod, coverageTarget, insuranceFee);
             printPremiunRate(premiumRate);
         }
     }
@@ -287,12 +284,21 @@ public class ISMain {
         System.out.println("요율은 ("+Math.round(premiumRate.calculate()*10.0)/10.0+"%) 입니다.");
     }
 
-    private
-    void showInsuranceList() {
+    private void showInsuranceList() {
         int cnt = 1;
-        for (Insurance insurance : insuranceDao.retrieveAll().getInsuranceList()) {
+        for (Insurance insurance : insuranceDao.retrieveAll().retrieve()) {
             System.out.println(cnt+" :  "+" Name : "+insurance.getInsuranceName());
             cnt++;
+        }
+    }
+
+    private void showUnAuthorizeInsurance() {
+        int cnt = 1;
+        for (Insurance insurance : insuranceDao.retrieveAll().retrieve()) {
+            if (!insurance.isAuthorize()) {
+                System.out.println(cnt+" :  "+" Name : "+insurance.getInsuranceName());
+                cnt++;
+            }
         }
     }
 
@@ -311,11 +317,11 @@ public class ISMain {
                     break;
                 }
                 else if(authorizeChoice.equals("2")) {
-                    System.out.print("임시 상품명: ");
+                    System.out.println("임시 상품명: ");
                     String temporalName = objectReader.readLine().trim();
                     insurance.setInsuranceName(temporalName);
                     insuranceDao.create(insurance);
-                    System.out.print("임시저장이 완료되었습니다.");
+                    System.out.println("임시저장이 완료되었습니다.");
                     break;
                 } else {
                     throw new InvalidInputException("입력은 1,2중 하나 입니다.");
@@ -331,7 +337,7 @@ public class ISMain {
     public void authorizeInsurance(BufferedReader objectReader) throws InvalidInputException, IOException, EmptyValueException, ConnectErrorException {
         showInsuranceList();
         Integer choiceNumber = readIntegerInput(objectReader, "상품번호를 입력해주세요");
-        Insurance choiceInsurance = insuranceList.getInsuranceList().get(choiceNumber - 1);
+        Insurance choiceInsurance = insuranceDao.retrieveAll().retrieve().get(choiceNumber - 1);
         boolean authorize = choiceInsurance.authorize("1");
         if (authorize) {
             System.out.println("상품이 인가되었습니다");
@@ -342,6 +348,7 @@ public class ISMain {
     private Insurance createInsurance(BufferedReader objectReader) throws IOException, InvalidInputException, EmptyValueException {
         while (true) {
             try {
+                Integer insuranceID = readIntegerInput(objectReader, "보험ID: ");
                 System.out.print("보장대상: ");
                 String coverageTarget = objectReader.readLine().trim();
                 System.out.print("보장사건: ");
@@ -352,8 +359,9 @@ public class ISMain {
                 System.out.print("보험명: ");
                 String insuranceName = objectReader.readLine().trim();
                 validateInsuranceInput(coverageTarget, coverageEvent, coverageAmount, coveragePeriod, insuranceFee, insuranceName);
-                Insurance insurance = new Insurance(insuranceName, coverageAmount, coverageEvent, coveragePeriod, coverageTarget, insuranceFee);
+                Insurance insurance = new Insurance(insuranceID,insuranceName, coverageAmount, coverageEvent, coveragePeriod, coverageTarget, insuranceFee);
                 insurance.calculateRate();
+                printPremiunRate(insurance.getPremiumRate());
                 premiumRateDao.create(insurance.getPremiumRate());
                 return insurance;
             } catch (InvalidInputException | EmptyValueException e) {
@@ -456,7 +464,7 @@ public class ISMain {
     	showInsuranceList();
    
         Integer choiceNumber = readIntegerInput(objectReader, "상품번호를 입력해주세요");
-        Insurance choiceInsurance = insuranceList.getInsuranceList().get(choiceNumber - 1);
+        Insurance choiceInsurance = insuranceDao.retrieveAll().retrieve().get(choiceNumber - 1);
         
         System.out.println("----UW 업무를 선택하세요----");
         System.out.println("1. 인수심사");

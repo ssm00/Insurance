@@ -19,7 +19,8 @@ public class Insurance {
 	private int insuranceFee;
 	private boolean authorizeState;
 	private PremiumRate premiumRate;
-	public Insurance(String insuranceName, int coverageAmount, String coverageEvent, int coveragePeriod, String coverageTarget, int insuranceFee){
+	public Insurance(int insuranceID, String insuranceName, int coverageAmount, String coverageEvent, int coveragePeriod, String coverageTarget, int insuranceFee){
+		this.insuranceID = insuranceID;
 		this.insuranceName = insuranceName;
 		this.coverageAmount = coverageAmount;
 		this.coverageEvent = coverageEvent;
@@ -49,7 +50,7 @@ public class Insurance {
 		}
 	}
 	public float calculateRate(){
-		this.premiumRate = new PremiumRate(coverageAmount,coverageEvent,coveragePeriod, coverageTarget, insuranceFee);
+		this.premiumRate = new PremiumRate(insuranceID,coverageAmount,coverageEvent,coveragePeriod, coverageTarget, insuranceFee);
 		return premiumRate.calculate();
 	}
 	public int getCoverageAmount() {

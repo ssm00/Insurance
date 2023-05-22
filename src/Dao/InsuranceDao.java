@@ -18,7 +18,7 @@ public class InsuranceDao extends Dao {
     }
     public void create(Insurance insurance){
         String query = "insert into insurance values ("
-                +"null, "
+                +insurance.getInsuranceID()+", "
                 +'\''+insurance.getInsuranceName() +'\''+", "
                 +insurance.getCoverageAmount()+", "
                 +'\''+insurance.getCoverageEvent() +'\''+", "
@@ -57,7 +57,10 @@ public class InsuranceDao extends Dao {
             while(resultSet.next()) {
                 int premiumRateID = resultSet.getInt("premiumRateID");
                 ResultSet premiumRateInfo = super.retrieve("select * from premiumRate where premiumRateID = " + premiumRateID + ";");
-                PremiumRate premiumRate = new PremiumRate(premiumRateInfo.getInt("premiumRateID"), premiumRateInfo.getFloat("accidentRate"), premiumRateInfo.getFloat("expectedProfitRate"), premiumRateInfo.getFloat("rate"));
+                PremiumRate premiumRate = null;
+                while(premiumRateInfo.next()) {
+                    premiumRate = new PremiumRate(premiumRateInfo.getInt("premiumRateID"), premiumRateInfo.getFloat("accidentRate"), premiumRateInfo.getFloat("expectedProfitRate"), premiumRateInfo.getFloat("rate"));
+                }
                 Insurance insurance = new Insurance(
                         resultSet.getInt("insuranceID"),
                         resultSet.getString("insuranceName"),

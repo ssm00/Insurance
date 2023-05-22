@@ -18,7 +18,7 @@ public class PremiumRateDao extends Dao {
     }
     public void create(PremiumRate premiumRate){
         String query = "insert into premiumRate values ("
-                +"null, "
+                + premiumRate.getPremiumRateID() +", "
                 + premiumRate.getAccidentRate() +", "
                 + premiumRate.getExpectedProfitRate() +", "
                 + premiumRate.getRate()+");";
