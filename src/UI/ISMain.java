@@ -361,8 +361,7 @@ public class ISMain {
             throw new EmptyValueException(message);
         }
     }
-    private
-    Integer readIntegerInput(BufferedReader objectReader, String message) throws IOException, InvalidInputException {
+    private Integer readIntegerInput(BufferedReader objectReader, String message) throws IOException, InvalidInputException {
         while (true) {
             try {
                 System.out.print(message);
@@ -868,18 +867,18 @@ public class ISMain {
         System.out.println("손해액: " + selectedCompensation.getDamage());
         System.out.println("\n=============선택된 보상, 변경 후============");
         System.out.println("보상금: ");
-        String newCompensationMoney = objectReader.readLine().trim();
+        int newCompensationMoney = Integer.parseInt(objectReader.readLine().trim());
         System.out.println("손해액: ");
         int newDamage = Integer.parseInt(objectReader.readLine().trim());
         System.out.println("1. 수정");
         System.out.println("2. 취소");
         String userInput = objectReader.readLine().trim();
-        if (userInput == "1") {
+        if (userInput.equals("1")) {
             compensationDao.update(selectedCompensation, new Compensation(selectedCompensation.getCompensationId(), newCompensationMoney,
             newDamage, selectedCompensation.getEvaluation()));
             return;
         }
-        if (userInput == "2") {
+        if (userInput.equals("2")) {
             System.out.println("모든 변경 사항을 취소합니다.\n확인");
             manageCompensation(objectReader);
             return;
@@ -898,7 +897,7 @@ public class ISMain {
                 System.out.println(count + ". ");
                 System.out.println("보상 ID: " + compensation.getCompensationId());
                 System.out.println("보상금: " + compensation.getCompensationMoney());
-                System.out.println("손해액: " + compensation.getCompensationId());
+                System.out.println("손해액: " + compensation.getDamage());
                 System.out.println("###############################################\n");
                 ++count;
             }

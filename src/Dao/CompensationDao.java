@@ -20,11 +20,10 @@ public class CompensationDao extends Dao {
     }
 
     public void update(Compensation beforeCompensation, Compensation afterCompensation){
-        String query = "update compensation set compensationMoney = "+ '\''+ afterCompensation.getCompensationMoney() +'\''+ ","+
-                " damage = " + '\''+ afterCompensation.getDamage() +'\''+ ","+
-                " evaluation = " + afterCompensation.getEvaluation() +","+
+        String query = "update compensation set compensationMoney = "+ afterCompensation.getCompensationMoney()+ ","+
+                " damage = " + afterCompensation.getDamage()+ ","+
+                " evaluation = " + afterCompensation.getEvaluation() +
                 " where compensationId = " + beforeCompensation.getCompensationId() + ";";
-                
         System.out.println(query);
         super.update(query);
     }
@@ -40,8 +39,8 @@ public class CompensationDao extends Dao {
         try {
             while(resultSet.next()) {
                 Compensation compensation = new Compensation(
-                    resultSet.getString("compensationId"),
-                    resultSet.getString("compensationMoney"),
+                    resultSet.getInt("compensationId"),
+                    resultSet.getInt("compensationMoney"),
                     resultSet.getInt("damage"),
                     resultSet.getInt("evaluation"));
                 compensationList.add(compensation);

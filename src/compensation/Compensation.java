@@ -1,11 +1,11 @@
 package compensation;
 
 public class Compensation {
-	private String compensationMoney;
+	private Integer compensationMoney;
 	private int damage;
 	private int evaluation;
-	private String compensationId;
-	public Compensation(String compensationId, String compensationMoney, int damage, int evaluation){
+	private Integer compensationId;
+	public Compensation(Integer compensationId, Integer compensationMoney, int damage, int evaluation){
 		this.compensationMoney = compensationMoney;
 		this.damage = damage;
 		this.evaluation = evaluation;
@@ -25,7 +25,7 @@ public class Compensation {
 		}
 		else return false;
 	}
-	public boolean remit(String compensationMoney){
+	public boolean remit(Integer compensationMoney){
 		if (this.compensationMoney != null) {
 			this.compensationMoney = compensationMoney;
 			return true;
@@ -40,10 +40,10 @@ public class Compensation {
 		return false;
 	}
 	// Getters and setters
-	public String getCompensationMoney() {
+	public Integer getCompensationMoney() {
 		return compensationMoney;
 	}
-	public void setCompensationMoney(String compensationMoney) {
+	public void setCompensationMoney(Integer compensationMoney) {
 		this.compensationMoney = compensationMoney;
 	}
 	public int getDamage() {
@@ -58,10 +58,10 @@ public class Compensation {
 	public void setEvaluation(int evaluation) {
 		this.evaluation = evaluation;
 	}
-	public String getCompensationId() {
+	public Integer getCompensationId() {
 		return compensationId;
 	}
-	public void setCompensationId(String compensationId) {
+	public void setCompensationId(Integer compensationId) {
 		this.compensationId = compensationId;
 	}
 }
