@@ -827,8 +827,8 @@ public class ISMain {
         System.out.println("점수를 입력하십시오.(0~10)");
         int newEvaluation = Integer.parseInt(objectReader.readLine().trim());
         if (newEvaluation <= 10 && newEvaluation >= 0) {
-            compensationDao.update(selectedCompensation, new Compensation(selectedCompensation.getCompensationId(), newCompensationMoney,
-            selectedCompensation.getDamage(), newEvaluation));
+            compensationDao.update(selectedCompensation, new Compensation(selectedCompensation.getCompensationId(),
+            selectedCompensation.getCompensationMoney(), selectedCompensation.getDamage(), newEvaluation));
         } else {
             System.out.println("유효하지 않은 입력입니다.");
         }
