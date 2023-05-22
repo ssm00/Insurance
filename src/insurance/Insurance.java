@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.util.*;
 
 public class Insurance {
-
 	private int insuranceID;
 	private String insuranceName;
 	private int coverageAmount;
@@ -29,7 +28,6 @@ public class Insurance {
 		this.insuranceFee = insuranceFee;
 		this.authorizeState = false;
 	}
-
 	public Insurance(int insuranceID, String insuranceName, int coverageAmount, String coverageEvent, int coveragePeriod, String coverageTarget, int insuranceFee, boolean authorizeState, PremiumRate premiumRate) {
 		this.insuranceID = insuranceID;
 		this.insuranceName = insuranceName;

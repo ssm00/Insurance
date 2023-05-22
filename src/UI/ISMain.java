@@ -53,45 +53,21 @@ public class ISMain {
     PremiumRateDao premiumRateDao;
     public ISMain() {
         insuranceList = new InsuranceListImpl();
-        //insuranceList.add(new Insurance(1, "dddd", 2, "AAA", 111, "보험1"));
-        //insuranceList.add(new Insurance(2, "dddd", 3, "BBB", 123, "보험2"));
-
         customerListImpl = new CustomerListImpl();
-        customerListImpl.add(new Customer(1,"김범준","용인",24,"남자","무직"));
         customerList = customerListImpl.retrieve();
-
         contractListImpl = new ContractListImpl();
-        //contractListImpl.add(new Contract(12551,10000000,new Date(124,01,11),"자세한 내용은 약관을 참조하세요1"));
-        //contractListImpl.add(new Contract(12551,10000000,new Date(121,01,11),"자세한 내용은 약관을 참조하세요1"));
-        //contractListImpl.add(new Contract(12551,1000032000,new Date(124,01,02),"자세한 내용은 약관을 참조하세요3"));
         contractList = contractListImpl.retrieve();
-
         salesListImpl = new SalesListImpl();
-        salesListImpl.add(new Sale(2,"qwerty",12551, new Date()));
-        salesListImpl.add(new Sale(3,"asdfgh",12121, new Date()));
         saleList = salesListImpl.retrieve();
-
-
         compensationListImpl = new CompensationListImpl();
-        compensationListImpl.add(new Compensation("2401", "343000", 8480000, 7));
-        compensationListImpl.add(new Compensation("2408", "211000", 4450000, 9));
-        compensationListImpl.add(new Compensation("2580", "747000", 12800000, 3));
         compensationList = compensationListImpl.retrieve();
-
         demandListImpl = new DemandListImpl();
-        demandListImpl.add(new Demand("6656", 20050111, "교통사고", 0, "사고내용 1", "복합골절", 1, "서울대학교병원", "지영호", "4568542381658", "외국은행", "본인"));
-
         contractDao = new ContractDao();
         saleDao = new SaleDao();
         customerDao = new CustomerDao();
-        //compensationList = new CompensationListImpl();
-
         insuranceDao = new InsuranceDao();
         premiumRateDao = new PremiumRateDao();
-        //premiumRateDao.create(new PremiumRate(123,"암1",33,"암",3333));
-        //insuranceDao.create(new Insurance("1번",123,"암보험1", 123,"암",133));
     }
-
     public static void main(String[] args) throws NotBoundException, IOException {
         BufferedReader objectReader = new BufferedReader(new InputStreamReader(System.in));
         ISMain isMain = new ISMain();
@@ -151,7 +127,6 @@ public class ISMain {
             System.out.println(e.getMessage());
         }
     }
-
     private void printMarketingMenu(BufferedReader objectReader) {
         try {
             while (true) {
@@ -186,7 +161,6 @@ public class ISMain {
         }
         System.out.println("프로그램 종료");
     }
-
     private void printContractMenu(BufferedReader objectReader) {
         try {
             while (true) {
@@ -225,7 +199,6 @@ public class ISMain {
             System.out.println(e.getMessage());
         }
     }
-
     private void designInsurance(BufferedReader objectReader) throws IOException, InvalidInputException {
         while (true) {
             System.out.println("1. 보장내용 입력");
@@ -256,7 +229,6 @@ public class ISMain {
             }
         }
     }
-
     private void showPremiumRateMenu(BufferedReader objectReader) throws IOException, InvalidInputException {
         System.out.println("1. 상품 리스트");
         System.out.println("2. 직접 산출");
@@ -279,11 +251,9 @@ public class ISMain {
             printPremiunRate(premiumRate);
         }
     }
-
     private static void printPremiunRate(PremiumRate premiumRate) {
         System.out.println("요율은 ("+Math.round(premiumRate.calculate()*10.0)/10.0+"%) 입니다.");
     }
-
     private void showInsuranceList() {
         int cnt = 1;
         for (Insurance insurance : insuranceDao.retrieveAll().retrieve()) {
@@ -291,7 +261,6 @@ public class ISMain {
             cnt++;
         }
     }
-
     private void showUnAuthorizeInsurance() {
         int cnt = 1;
         for (Insurance insurance : insuranceDao.retrieveAll().retrieve()) {
@@ -301,7 +270,6 @@ public class ISMain {
             }
         }
     }
-
     private void authorizeORSave(BufferedReader objectReader, Insurance insurance) throws IOException, EmptyValueException {
         while (true) {
             System.out.println("1. 상품 인가");
@@ -333,7 +301,6 @@ public class ISMain {
             }
         }
     }
-
     public void authorizeInsurance(BufferedReader objectReader) throws InvalidInputException, IOException, EmptyValueException, ConnectErrorException {
         showInsuranceList();
         Integer choiceNumber = readIntegerInput(objectReader, "상품번호를 입력해주세요");
@@ -344,7 +311,6 @@ public class ISMain {
             insuranceDao.create(choiceInsurance);
         }
     }
-
     private Insurance createInsurance(BufferedReader objectReader) throws IOException, InvalidInputException, EmptyValueException {
         while (true) {
             try {
@@ -369,7 +335,6 @@ public class ISMain {
             }
         }
     }
-
     private void validateInsuranceInput(String coverageTarget, String coverageEvent, Integer coverageAmount, Integer coveragePeriod, Integer insuranceFee, String insuranceName) throws EmptyValueException {
         List<String> missingFields = new ArrayList<>();
         if (coverageAmount <= 0) {
@@ -395,7 +360,6 @@ public class ISMain {
             throw new EmptyValueException(message);
         }
     }
-
     private
     Integer readIntegerInput(BufferedReader objectReader, String message) throws IOException, InvalidInputException {
         while (true) {
@@ -407,19 +371,12 @@ public class ISMain {
             }
         }
     }
-
-    /**
-     * ---------------------------------------------------------------------------
-     */
-
-
     private void manageContracts(BufferedReader objectReader) throws IOException, SaveFailedException, EmptyValueException {
         showContractsList();
         String sChoice = objectReader.readLine().trim();
         Contract selectedContract = contractDao.retrieveAll().retrieve().get(Integer.parseInt(sChoice) - 1);
         editContract(objectReader, selectedContract);
     }
-    
     private void registerCustomer(BufferedReader objectReader) throws IOException, EmptyValueException, NumberFormatException, SaveFailedException {
         System.out.println("ID를 입력해주세요.");
         String newCustomerID = objectReader.readLine().trim();
@@ -433,7 +390,6 @@ public class ISMain {
         String newCustomerGender = objectReader.readLine().trim();
         System.out.println("나이를 입력해주세요.");
         String newCustomerAge = objectReader.readLine().trim();
-
         try{
             if(newCustomerID.isEmpty() || newCustomerName.isEmpty()
                     ||newCustomerAddress.isEmpty() || newCustomerJob.isEmpty()
@@ -450,30 +406,17 @@ public class ISMain {
         catch (NumberFormatException e){
             throw new SaveFailedException();
         }
-
     }
-
-    /**
-     * ------------------------------------------------------------------------------
-     * @throws InvalidInputException 
-     */
-
     private void uwStarted(BufferedReader objectReader) throws RemoteException, IOException, InvalidInputException {
-    	
-    	
     	showInsuranceList();
-   
         Integer choiceNumber = readIntegerInput(objectReader, "상품번호를 입력해주세요");
         Insurance choiceInsurance = insuranceDao.retrieveAll().retrieve().get(choiceNumber - 1);
-        
         System.out.println("----UW 업무를 선택하세요----");
         System.out.println("1. 인수심사");
         System.out.println("2. 재보험처리");
         System.out.println("3. 손해율관리");
-        
         UW underwriting = new UW();   
         String sChoice1 = objectReader.readLine().trim();
-        
         switch (sChoice1) {
             case "1": //인수심사
             	underwriting.underWriting(objectReader, choiceInsurance);
@@ -492,11 +435,6 @@ public class ISMain {
                 System.out.println("Invaild choice!");
         }
     }
-
-    /**
-     * -------------------------------------------------------------------------------------
-     */
-
     private void printMenu() {
         System.out.println("*********************MENU********************");
         System.out.println("1. 계약");
@@ -504,7 +442,6 @@ public class ISMain {
         System.out.println("3. 마케팅");
         System.out.println("x. 종료하기");
     }
-
     private void contractStatics(BufferedReader objectReader) throws IOException, NoExpiredContractException{
         showContractsList();
         System.out.println("*********************MENU********************");
@@ -523,7 +460,6 @@ public class ISMain {
         }
     }
     private  void manageSale(BufferedReader objectReader) throws IOException, EmptyValueException, NumberFormatException, SaveFailedException {
-
         System.out.println("*********************MENU********************");
         System.out.println("1. 영업활동 내역서 작성");
         System.out.println("x. 나가기");
@@ -570,13 +506,11 @@ public class ISMain {
         if(!checkExpired){throw new NoExpiredContractException();}
     }
     private  void manageCustomers(BufferedReader objectReader) throws IOException, EmptyValueException, IndexOutOfBoundsException, NumberFormatException, SaveFailedException {
-
         showCustomerList();
         String sChoice = objectReader.readLine().trim();
         Customer selectedCustomer = customerDao.retrieveAll().retrieve().get(Integer.parseInt(sChoice) - 1);
         editCustomer(objectReader, selectedCustomer);
     }
-
     private void editCustomer(BufferedReader objectReader, Customer selectedCustomer) throws IOException, EmptyValueException, SaveFailedException {
         System.out.println("ID: "+selectedCustomer.getCustomerID());
         System.out.println("이름: "+selectedCustomer.getCustomerName());
@@ -681,7 +615,6 @@ public class ISMain {
             System.out.println("-------------------------------------------------------------");
             ++count;}
     }
-
 //     //인수심사
 //     private void underWriting(BufferedReader objectReader) {
 
@@ -774,13 +707,6 @@ public class ISMain {
 //         System.out.println("계산된 손해액 : " + lossRate.getLossRate());
 
 //     }
-
-    /**
-     * ---------------------------------------------------------------------------
-     * @throws ConnectErrorException
-     * @throws IOException
-     * @throws EmptyValueException
-     */
     private void evaluateCompensation(BufferedReader objectReader) throws ConnectErrorException, IOException, EmptyValueException {
         try {
             showCompensationList();
@@ -811,7 +737,6 @@ public class ISMain {
                 System.out.println("잘못된 입력입니다.");
         }
     }
-
     private void confirm(BufferedReader objectReader, Compensation selectedCompensation) throws IOException, ConnectErrorException, EmptyValueException {
         System.out.println("해당 자동차 보험에 대한 심사 결재를 요청드립니다.");
         System.out.println("-------------------------------------------------------------");
@@ -835,7 +760,6 @@ public class ISMain {
                 System.out.println("잘못된 입력입니다.");
         }
     }
-
     private void payCompensation(BufferedReader objectReader) throws ConnectErrorException, IOException {
         System.out.println("==========보상금 지급===========");
         Demand demand = demandList.get(0);
@@ -855,7 +779,6 @@ public class ISMain {
             return;
         }
     }
-
     private void investigateDamage(BufferedReader objectReader) throws ConnectErrorException, IOException {
         System.out.println("==============손해 조사===============");
         int count = 1;
@@ -893,7 +816,6 @@ public class ISMain {
             return;
         }
     }
-
     private void examineCompensation(BufferedReader objectReader) throws ConnectErrorException, IOException {
         System.out.println("==============보상 평가===============");
         showCompensationList();
@@ -913,7 +835,6 @@ public class ISMain {
             System.out.println("유효하지 않은 입력입니다.");
         }
     }
-
     private void manageCompensation(BufferedReader objectReader) throws ConnectErrorException, IOException {
         System.out.println("==============보상 관리===============");
         showCompensationList();
@@ -987,18 +908,11 @@ public class ISMain {
             throw new ConnectErrorException("불러오기에 실패했습니다.\n확인");
         }
     }
-    /**
-     * -------------------------------------------------------------------------------------
-     */
-
-    private
-    void showList(ArrayList<?> dataList) throws RemoteException {
+    private void showList(ArrayList<?> dataList) throws RemoteException {
         String list = "";
         for(int i=0; i<dataList.size(); i++) {
             list += dataList.get(i) + "\n";
         }
         System.out.println(list);
     }
-
-
 }

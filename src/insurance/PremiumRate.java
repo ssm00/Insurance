@@ -38,7 +38,6 @@ public class PremiumRate {
 	public int getPremiumRateID() {
 		return premiumRateID;
 	}
-
 	public float getAccidentRate() {
 		return accidentRate;
 	}
