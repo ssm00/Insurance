@@ -6,8 +6,8 @@ import java.sql.SQLException;
 import compensation.Compensation;
 import compensation.CompensationListImpl;
 
-public class CompensationDAO extends Dao {
-    public CompensationDAO() {
+public class CompensationDao extends Dao {
+    public CompensationDao() {
         super.connect();
     }
     public void create(Compensation compensation){
@@ -19,8 +19,14 @@ public class CompensationDAO extends Dao {
         super.create(query);
     }
 
-    public void update(Compensation compensation){
-        
+    public void update(Compensation beforeCompensation, Compensation afterCompensation){
+        String query = "update compensation set compensationMoney = "+ '\''+ afterCompensation.getCompensationMoney() +'\''+ ","+
+                " damage = " + '\''+ afterCompensation.getDamage() +'\''+ ","+
+                " evaluation = " + afterCompensation.getEvaluation() +","+
+                " where customerID = " + beforeCompensation.getCompensationId() + ";";
+                
+        System.out.println(query);
+        super.update(query);
     }
 
     public void delete(Compensation compensation){
