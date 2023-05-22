@@ -67,6 +67,7 @@ public class ISMain {
         customerDao = new CustomerDao();
         insuranceDao = new InsuranceDao();
         premiumRateDao = new PremiumRateDao();
+        compensationDao = new CompensationDao();
     }
     public static void main(String[] args) throws NotBoundException, IOException {
         BufferedReader objectReader = new BufferedReader(new InputStreamReader(System.in));
