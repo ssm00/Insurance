@@ -1,6 +1,6 @@
 package Dao;
 
-import demand.Demand;
+import Domain.Demand;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

@@ -1,8 +1,8 @@
-package customer;
+package Domain;
 
 
 import Dao.CustomerDao;
-import ServerIF.CustomerServerIF;
+import ServerIF.CustomerIF;
 
 import java.net.MalformedURLException;
 import java.rmi.Naming;
@@ -11,7 +11,7 @@ import java.rmi.server.UnicastRemoteObject;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class CustomerServer extends UnicastRemoteObject implements CustomerServerIF {
+public class CustomerServer extends UnicastRemoteObject implements CustomerIF {
     CustomerDao dao;
     private static final long serialVersionUID = 1L;
     protected CustomerServer() throws RemoteException{

@@ -1,9 +1,10 @@
 package Domain;
 
+import java.io.Serializable;
 import java.util.Date;
 
 
-public class Contract {
+public class Contract implements Serializable {
 	private String coverageDetails;
 	private Date expirationDate;
 

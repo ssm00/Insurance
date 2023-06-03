@@ -1,7 +1,9 @@
 package Domain;
 import utils.EmptyValueException;
 
-public class Demand {
+import java.io.Serializable;
+
+public class Demand implements Serializable {
 	private int accidentDate;
 	private String accidentType;
 	private int copyofIdentification;
@@ -15,10 +17,10 @@ public class Demand {
 	private String bank;
 	private String information;
 	public Demand(String demandId, int accidentDate, String accidentType,
-	            int copyofIdentification, String details, String diagnosis, 
-			    int documentaryEvidence, String treatmentHospital,
-				String customerName, String accountNumber, String bank, 
-				String information) {
+                  int copyofIdentification, String details, String diagnosis,
+                  int documentaryEvidence, String treatmentHospital,
+                  String customerName, String accountNumber, String bank,
+                  String information) {
 		this.accidentDate = accidentDate;
 		this.accidentType = accidentType;
 		this.copyofIdentification = copyofIdentification;

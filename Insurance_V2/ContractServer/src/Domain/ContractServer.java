@@ -1,19 +1,18 @@
-package contract;
+package Domain;
 
 
 import Dao.ContractDao;
-import ServerIF.ContractServerIF;
+import ServerIF.ContractIF;
 
 import java.net.MalformedURLException;
 import java.rmi.Naming;
-import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class ContractServer extends UnicastRemoteObject implements ContractServerIF {
+public class ContractServer extends UnicastRemoteObject implements ContractIF {
     ContractDao dao;
     private static final long serialVersionUID = 1L;
     protected ContractServer() throws RemoteException{

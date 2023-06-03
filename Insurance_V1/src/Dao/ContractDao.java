@@ -1,7 +1,7 @@
 package Dao;
 
-import contract.Contract;
-import contract.ContractListImpl;
+import Domain.Contract;
+import Domain.ContractListImpl;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

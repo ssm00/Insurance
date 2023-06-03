@@ -1,7 +1,7 @@
-package demand;
+package Domain;
 
 import Dao.DemandDao;
-import ServerIF.DemandServerIF;
+import ServerIF.DemandIF;
 
 import java.net.MalformedURLException;
 import java.rmi.Naming;
@@ -10,7 +10,7 @@ import java.rmi.server.UnicastRemoteObject;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class DemandServer extends UnicastRemoteObject implements DemandServerIF {
+public class DemandServer extends UnicastRemoteObject implements DemandIF {
 
     DemandDao dao;
     private static final long serialVersionUID = 1L;

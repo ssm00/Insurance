@@ -1,6 +1,6 @@
 package Dao;
 
-import customer.Customer;
+import Domain.Customer;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

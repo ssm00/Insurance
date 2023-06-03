@@ -1,6 +1,8 @@
 package Domain;
 
-public class Customer {
+import java.io.Serializable;
+
+public class Customer implements Serializable {
 	private int customerID;
 	private String customerName;
 	private String address;

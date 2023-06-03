@@ -1,4 +1,4 @@
-package demand;
+package Domain;
 import utils.EmptyValueException;
 
 import java.io.Serializable;

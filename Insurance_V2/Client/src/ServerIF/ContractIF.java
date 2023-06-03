@@ -1,6 +1,6 @@
 package ServerIF;
 
-import contract.Contract;
+import Domain.Contract;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 
-public interface ContractServerIF extends Remote{
+public interface ContractIF extends Remote{
     void renewalExpiredAll() throws RemoteException, SQLException;
     ArrayList<Contract> getExpiredContractList() throws RemoteException, SQLException;
     ArrayList<Contract> getContractList() throws RemoteException;

@@ -1,6 +1,6 @@
 package Dao;
 
-import customer.CustomerListImpl;
+import Domain.CustomerListImpl;
 import insurance.Insurance;
 import insurance.InsuranceListImpl;
 import insurance.PremiumRate;

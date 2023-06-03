@@ -1,7 +1,7 @@
 package Dao;
 
-import contract.Contract;
-import sales.Sale;
+import Domain.Contract;
+import Domain.Sale;
 
 public class SaleDao extends Dao {
     public SaleDao(){

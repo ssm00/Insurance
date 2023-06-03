@@ -1,13 +1,13 @@
 package ServerIF;
 
-import demand.Demand;
+import Domain.Demand;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public interface DemandServerIF extends Remote {
+public interface DemandIF extends Remote {
     ArrayList<Demand> getDemandList() throws RemoteException, SQLException;
     void updateDemand(String beforeDemandId, String afterDemandId, int accidentDate, String accidentType,
                       int copyofIdentification, String details, String diagnosis,

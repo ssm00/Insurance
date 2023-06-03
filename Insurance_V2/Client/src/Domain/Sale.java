@@ -1,4 +1,4 @@
-package sales;
+package Domain;
 
 import java.io.Serializable;
 import java.util.Date;

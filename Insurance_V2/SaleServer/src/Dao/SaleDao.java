@@ -1,6 +1,6 @@
 package Dao;
 
-import sales.Sale;
+import Domain.Sale;
 
 import java.sql.SQLException;
 

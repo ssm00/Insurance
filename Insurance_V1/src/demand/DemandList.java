@@ -1,4 +1,4 @@
-package demand;
+package Domain;
 import java.util.ArrayList;
 public interface DemandList {
 	public boolean add(Demand demand);

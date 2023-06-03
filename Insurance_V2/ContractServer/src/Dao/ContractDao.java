@@ -1,6 +1,6 @@
 package Dao;
 
-import contract.Contract;
+import Domain.Contract;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
