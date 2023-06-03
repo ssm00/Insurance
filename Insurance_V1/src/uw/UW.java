@@ -18,13 +18,9 @@ public class UW {
 //    }
     
 	public boolean reinsuranceProcessign(BufferedReader objectReader, Insurance choiceInsurance) {
-		
 		System.out.println("재보험 처리를 진행합니다.");
-		
         // 재보험 검증 및 재보험료 계산
-		
         boolean isReinsuranceValidated = validate(choiceInsurance);
-        
         if (isReinsuranceValidated) {
             double reinsurancePremium = calculateReinsuranceFee(objectReader, choiceInsurance);
             System.out.println(choiceInsurance.getInsuranceName() + ": 재보험 승인이 성공되었습니다. ");
@@ -32,12 +28,8 @@ public class UW {
         } else {
             System.out.println(choiceInsurance.getInsuranceName() + ": 재보험 승인에 실패했습니다. ");
         }
-    	
-	
 		return true;
-		
 	}
-
 
     //재보험처리(재보험료계산)
     public int calculateReinsuranceFee(BufferedReader objectReader, Insurance choiceInsurance) {

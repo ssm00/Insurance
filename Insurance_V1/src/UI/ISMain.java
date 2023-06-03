@@ -660,9 +660,7 @@ public class ISMain {
 
 //     //손해율관리
 //     private void calculateLossRate(BufferedReader objectReader) {
-
 //         LossRate lossRate = new LossRate();
-
 //         System.out.println("계산을 위한 데이터를 입력해주세요.");
 //         System.out.println("사고 종류 : ");
 //         String accidentType = null;
@@ -672,7 +670,6 @@ public class ISMain {
 //             e.printStackTrace();
 //         }
 //         lossRate.setAccidentType(accidentType);
-
 //         System.out.println("보상 한도 : ");
 //         int coverageLimit = 0;
 //         try {
@@ -682,7 +679,6 @@ public class ISMain {
 //             e.printStackTrace();
 //         }
 //         lossRate.setCoverageLimit(coverageLimit);
-
 //         System.out.println("보험료 : ");
 //         int insuranceFee = 0;
 //         try {
@@ -691,7 +687,6 @@ public class ISMain {
 //             e.printStackTrace();
 //         }
 //         lossRate.setInsuranceFee(insuranceFee);
-
 //         System.out.println("지급된 보상액 : ");
 //         int paedAmount = 0;
 //         try {
@@ -700,12 +695,9 @@ public class ISMain {
 //             e.printStackTrace();
 //         }
 //         lossRate.setPaidAmount(paedAmount);
-
 //         //계산..
 //         lossRate.calculateLossRate();
-
 //         System.out.println("계산된 손해액 : " + lossRate.getLossRate());
-
 //     }
     private void evaluateCompensation(BufferedReader objectReader) throws ConnectErrorException, IOException, EmptyValueException {
         try {

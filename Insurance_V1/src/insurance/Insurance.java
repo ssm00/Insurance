@@ -28,16 +28,8 @@ public class Insurance {
 		this.insuranceFee = insuranceFee;
 		this.authorizeState = false;
 	}
-	public Insurance(int insuranceID, String insuranceName, int coverageAmount, String coverageEvent, int coveragePeriod, String coverageTarget, int insuranceFee, boolean authorizeState, PremiumRate premiumRate) {
-		this.insuranceID = insuranceID;
-		this.insuranceName = insuranceName;
-		this.coverageAmount = coverageAmount;
-		this.coverageEvent = coverageEvent;
-		this.coveragePeriod = coveragePeriod;
-		this.coverageTarget = coverageTarget;
-		this.insuranceFee = insuranceFee;
-		this.authorizeState = authorizeState;
-		this.premiumRate = premiumRate;
+	public Insurance crateInsuranceDao(int insuranceID, String insuranceName, int coverageAmount, String coverageEvent, int coveragePeriod, String coverageTarget, int insuranceFee, boolean authorizeState, PremiumRate premiumRate) {
+		return new Insurance( insuranceID,  insuranceName,  coverageAmount,  coverageEvent,  coveragePeriod,  coverageTarget,  insuranceFee,  authorizeState,  premiumRate)
 	}
 	public boolean authorize(String connection) throws InvalidInputException, ConnectErrorException, EmptyValueException, IOException {
 		if (connection.equals("1")) {
