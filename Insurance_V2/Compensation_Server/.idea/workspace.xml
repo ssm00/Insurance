@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="6ea195b4-2544-4ab3-bce3-7da87f9b323d" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dbnavigator.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/jpa-buddy.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Compensation_Server.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/CompensationServer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Dao/CompensationDao.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Dao/Dao.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Domain/Compensation.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ServerIF/CompensationIF.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/utils/ConnectErrorException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/utils/EmptyValueException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/utils/InvaildFormatException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/utils/InvalidInputException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/utils/LoadingTimeException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/utils/NoExpiredContractException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/utils/SaveFailedException.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2Qgu4rqgVSnwgnEbdCDIwSCEZ4d" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "C:/Program Files (x86)/MySQL/Connector J 8.0/mysql-connector-j-8.0.33.jar",
+    "project.structure.last.edited": "Libraries",
+    "project.structure.proportion": "0.15234375",
+    "project.structure.side.proportion": "0.2"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Ea\분산1\java\Insurance_Rmi\Compensation_Server\src\Dao" />
+      <recent name="C:\Ea\분산1\java\Insurance_Rmi\Compensation_Server\src" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="" />
+      <recent name="Domain" />
+      <recent name="ServerIF" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="6ea195b4-2544-4ab3-bce3-7da87f9b323d" name="Changes" comment="" />
+      <created>1685787358500</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1685787358500</updated>
+      <workItem from="1685787359989" duration="804000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>
