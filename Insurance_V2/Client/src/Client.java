@@ -16,7 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Client {
-
     InsuranceIF insuranceServer;
     UwIF uwServer;
     CompensationIF compensationServer;
@@ -24,7 +23,6 @@ public class Client {
     CustomerIF customerServer;
     ContractIF contractServer;
     SaleIF saleServer;
-
     public Client() throws MalformedURLException, NotBoundException, RemoteException {
         insuranceServer = (InsuranceIF) Naming.lookup("//localhost:1010/InsuranceServer");
         uwServer = (UwIF) Naming.lookup("//localhost:3030/UwServer");
@@ -34,7 +32,6 @@ public class Client {
         contractServer = (ContractIF) Naming.lookup("//localhost:8080/ContractServer");
         saleServer = (SaleIF) Naming.lookup("//localhost:9090/SaleServer");
     }
-
     public static void main(String[] args) throws NotBoundException, IOException {
         BufferedReader objectReader = new BufferedReader(new InputStreamReader(System.in));
         Client client = new Client();
