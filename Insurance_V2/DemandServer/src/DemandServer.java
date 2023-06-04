@@ -1,6 +1,5 @@
-package Domain;
-
 import Dao.DemandDao;
+import Domain.Demand;
 import ServerIF.DemandIF;
 
 import java.net.MalformedURLException;
@@ -10,6 +9,7 @@ import java.rmi.server.UnicastRemoteObject;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+//start rmiregistry 5050 -J-Djava.class.path=C:\Ea\분산1\java\Insurance\Insurance_V2\DemandServer\out\production\DemandServer
 public class DemandServer extends UnicastRemoteObject implements DemandIF {
 
     DemandDao dao;

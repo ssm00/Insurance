@@ -16,6 +16,7 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
+//start rmiregistry 1010 -J-Djava.class.path=C:\Ea\분산1\java\Insurance\Insurance_V2\Insurance_Server\out\production\Insurance_Server
 public class InsuranceServer extends UnicastRemoteObject implements InsuranceIF, PremiumRateIF {
     private static final long serialVersionUID = 1L;
     private InsuranceDao insuranceDao;
@@ -23,15 +24,15 @@ public class InsuranceServer extends UnicastRemoteObject implements InsuranceIF,
 
     protected InsuranceServer() throws RemoteException {
         super();
+        insuranceDao = new InsuranceDao();
+        premiumRateDao = new PremiumRateDao();
     }
 
     public static void main(String[] args) throws NotBoundException {
         try {
             InsuranceServer insuranceServer = new InsuranceServer();
-            Naming.rebind("InsuranceServer", insuranceServer);
+            Naming.rebind("//localhost:1010/InsuranceServer", insuranceServer);
             System.out.println("InsuranceServer is ready !!");
-            insuranceServer.insuranceDao = new InsuranceDao();
-            insuranceServer.premiumRateDao = new PremiumRateDao();
         }
         catch(RemoteException e) {
             e.printStackTrace();

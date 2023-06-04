@@ -9,20 +9,21 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
+//start rmiregistry 2020 -J-Djava.class.path=C:\Ea\분산1\java\Insurance\Insurance_V2\Compensation_Server\out\production\Compensation_Server
 public class CompensationServer extends UnicastRemoteObject implements CompensationIF {
     private static final long serialVersionUID = 1L;
     private CompensationDao compensationDao;
 
     protected CompensationServer() throws RemoteException {
         super();
+        compensationDao = new CompensationDao();
     }
 
     public static void main(String[] args) throws NotBoundException {
         try {
             CompensationServer compensationServer = new CompensationServer();
-            Naming.rebind("CompensationServer", compensationServer);
+            Naming.rebind("//localhost:2020/CompensationServer", compensationServer);
             System.out.println("CompensationServer is ready !!");
-            compensationServer.compensationDao = new CompensationDao();
         }
         catch(RemoteException e) {
             e.printStackTrace();

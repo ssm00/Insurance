@@ -43,12 +43,12 @@ public class PremiumRateDao extends Dao {
         ResultSet resultSet = super.retrieve(query);
         try {
             while(resultSet.next()) {
-                PremiumRate premiumRate = new PremiumRate(
+                PremiumRate premiumRate = new PremiumRate();
+                premiumRate.generateORM(
                         resultSet.getInt("premiumRateID"),
                         resultSet.getFloat("accidentRate"),
                         resultSet.getFloat("expectedProfitRate"),
-                        resultSet.getFloat("rate")
-                );
+                        resultSet.getFloat("rate"));
                 premiumRateList.add(premiumRate);
             }
         } catch (SQLException e) {

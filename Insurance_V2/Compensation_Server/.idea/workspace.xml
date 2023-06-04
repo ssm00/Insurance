@@ -2,26 +2,79 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6ea195b4-2544-4ab3-bce3-7da87f9b323d" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dbnavigator.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/jpa-buddy.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Compensation_Server.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CompensationServer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Dao/CompensationDao.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Dao/Dao.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Domain/Compensation.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ServerIF/CompensationIF.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/utils/ConnectErrorException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/utils/EmptyValueException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/utils/InvaildFormatException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/utils/InvalidInputException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/utils/LoadingTimeException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/utils/NoExpiredContractException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/utils/SaveFailedException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ContractServer/.idea/dbnavigator.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ContractServer/.idea/jpa-buddy.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ContractServer/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CustomerServer/.idea/dbnavigator.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CustomerServer/.idea/jpa-buddy.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CustomerServer/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CustomerServer/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../DemandServer/.idea/dbnavigator.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../DemandServer/.idea/jpa-buddy.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../DemandServer/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../DemandServer/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SaleServer/.idea/dbnavigator.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SaleServer/.idea/jpa-buddy.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SaleServer/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SaleServer/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/src/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/src/Client.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/src/Domain/Insurance.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/src/Domain/Insurance.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/src/Domain/PremiumRate.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/src/Domain/PremiumRate.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ContractServer/.idea/libraries/mysql_connector_j_8_0_33.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../ContractServer/.idea/libraries/mysql_connector_j_8_0_33.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ContractServer/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../ContractServer/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ContractServer/src/ContractServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ContractServer/src/ContractServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ContractServer/src/Dao/Dao.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ContractServer/src/Dao/Dao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ContractServer/src/Domain/ContractServer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CustomerServer/.idea/libraries/mysql_connector_j_8_0_33.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../CustomerServer/.idea/libraries/mysql_connector_j_8_0_33.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CustomerServer/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../CustomerServer/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CustomerServer/src/Dao/Dao.java" beforeDir="false" afterPath="$PROJECT_DIR$/../CustomerServer/src/Dao/Dao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CustomerServer/src/Domain/CustomerServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/../CustomerServer/src/CustomerServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DemandServer/.idea/libraries/mysql_connector_j_8_0_33.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../DemandServer/.idea/libraries/mysql_connector_j_8_0_33.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DemandServer/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../DemandServer/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DemandServer/src/Dao/Dao.java" beforeDir="false" afterPath="$PROJECT_DIR$/../DemandServer/src/Dao/Dao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DemandServer/src/Domain/DemandServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/../DemandServer/src/DemandServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Insurance_Server/.idea/libraries/mysql_connector_j_8_0_33.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Insurance_Server/.idea/libraries/mysql_connector_j_8_0_33.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Insurance_Server/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Insurance_Server/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Insurance_Server/src/Dao/InsuranceDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Insurance_Server/src/Dao/InsuranceDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Insurance_Server/src/Dao/PremiumRateDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Insurance_Server/src/Dao/PremiumRateDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Insurance_Server/src/Domain/Insurance.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Insurance_Server/src/Domain/Insurance.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Insurance_Server/src/Domain/PremiumRate.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Insurance_Server/src/Domain/PremiumRate.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Insurance_Server/src/InsuranceServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Insurance_Server/src/InsuranceServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Main_Server/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Main_Server/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Main_Server/.idea/dbnavigator.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Main_Server/.idea/jpa-buddy.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Main_Server/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Main_Server/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Main_Server/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Main_Server/Main_Server.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Main_Server/src/Domain/Compensation.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Main_Server/src/Domain/Insurance.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Main_Server/src/Domain/LossRate.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Main_Server/src/Domain/PremiumRate.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Main_Server/src/Domain/UW.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Main_Server/src/MainServer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Main_Server/src/ServerIF/CompensationIF.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Main_Server/src/ServerIF/InsuranceIF.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Main_Server/src/ServerIF/PremiumRateIF.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Main_Server/src/ServerIF/UwIF.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Main_Server/src/utils/ConnectErrorException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Main_Server/src/utils/EmptyValueException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Main_Server/src/utils/InvaildFormatException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Main_Server/src/utils/InvalidInputException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Main_Server/src/utils/LoadingTimeException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Main_Server/src/utils/NoExpiredContractException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Main_Server/src/utils/SaveFailedException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SaleServer/.idea/libraries/mysql_connector_j_8_0_33.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../SaleServer/.idea/libraries/mysql_connector_j_8_0_33.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SaleServer/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../SaleServer/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SaleServer/src/Dao/Dao.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SaleServer/src/Dao/Dao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SaleServer/src/Domain/SaleServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SaleServer/src/SaleServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SaleServer/src/Domain/SalesList.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SaleServer/src/Domain/SalesListImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Uw_Server/.idea/libraries/mysql_connector_j_8_0_33.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Uw_Server/.idea/libraries/mysql_connector_j_8_0_33.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Uw_Server/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Uw_Server/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Uw_Server/src/UwServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Uw_Server/src/UwServer.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,7 +89,7 @@
     </option>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -80,6 +133,7 @@
       <option name="presentableId" value="Default" />
       <updated>1685787358500</updated>
       <workItem from="1685787359989" duration="804000" />
+      <workItem from="1685863768732" duration="3099000" />
     </task>
     <servers />
   </component>

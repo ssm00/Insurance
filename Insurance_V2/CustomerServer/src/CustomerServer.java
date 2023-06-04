@@ -1,7 +1,5 @@
-package Domain;
-
-
 import Dao.CustomerDao;
+import Domain.Customer;
 import ServerIF.CustomerIF;
 
 import java.net.MalformedURLException;
@@ -11,6 +9,7 @@ import java.rmi.server.UnicastRemoteObject;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+//start rmiregistry 6060 -J-Djava.class.path=C:\Ea\분산1\java\Insurance\Insurance_V2\CustomerServer\out\production\CustomerServer
 public class CustomerServer extends UnicastRemoteObject implements CustomerIF {
     CustomerDao dao;
     private static final long serialVersionUID = 1L;

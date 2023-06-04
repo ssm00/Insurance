@@ -57,9 +57,15 @@ public class InsuranceDao extends Dao {
                 ResultSet premiumRateInfo = super.retrieve("select * from premiumRate where premiumRateID = " + premiumRateID + ";");
                 PremiumRate premiumRate = null;
                 while(premiumRateInfo.next()) {
-                    premiumRate = new PremiumRate(premiumRateInfo.getInt("premiumRateID"), premiumRateInfo.getFloat("accidentRate"), premiumRateInfo.getFloat("expectedProfitRate"), premiumRateInfo.getFloat("rate"));
+                    premiumRate = new PremiumRate();
+                    premiumRate.generateORM(
+                            premiumRateInfo.getInt("premiumRateID"),
+                            premiumRateInfo.getFloat("accidentRate"),
+                            premiumRateInfo.getFloat("expectedProfitRate"),
+                            premiumRateInfo.getFloat("rate"));
                 }
-                Insurance insurance = new Insurance(
+                Insurance insurance = new Insurance();
+                insurance.generateORM(
                         resultSet.getInt("insuranceID"),
                         resultSet.getString("insuranceName"),
                         resultSet.getInt("coverageAmount"),
@@ -68,8 +74,7 @@ public class InsuranceDao extends Dao {
                         resultSet.getString("coverageTarget"),
                         resultSet.getInt("insuranceFee"),
                         resultSet.getBoolean("authorizeState"),
-                        premiumRate
-                        );
+                        premiumRate);
                 insuranceList.add(insurance);
             }
         } catch (SQLException e) {

@@ -9,19 +9,20 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
+//start rmiregistry 3030 -J-Djava.class.path=C:\Ea\분산1\java\Insurance\Insurance_V2\Uw_Server\out\production\Uw_Server
 public class UwServer extends UnicastRemoteObject implements UwIF {
     private static final long serialVersionUID = 1L;
     private UWDao uwDao;
 
     protected UwServer() throws RemoteException {
         super();
+        uwDao = new UWDao();
     }
 
     public static void main(String[] args) throws NotBoundException {
         try {
             UwServer uwServer = new UwServer();
-            Naming.rebind("UwServer", uwServer);
-            uwServer.uwDao = new UWDao();
+            Naming.rebind("//localhost:3030/UwServer", uwServer);
             System.out.println("UwServer is ready !!");
         }
         catch(RemoteException e) {

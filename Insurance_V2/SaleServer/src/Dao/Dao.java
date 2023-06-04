@@ -11,7 +11,7 @@ public class Dao {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             connect = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/bunsan?serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true", "root", "ok3036934");
+                    "jdbc:mysql://localhost:3306/bunsan?serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true", "root", "Q12345678@");
         } catch (Exception e) {
             e.printStackTrace();
         }

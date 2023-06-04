@@ -2,7 +2,6 @@ import Domain.*;
 import ServerIF.*;
 import utils.*;
 
-import javax.naming.Name;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -14,7 +13,6 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class Client {
@@ -28,9 +26,9 @@ public class Client {
     SaleIF saleServer;
 
     public Client() throws MalformedURLException, NotBoundException, RemoteException {
-        insuranceServer = (InsuranceIF) Naming.lookup("InsuranceServer");
-        uwServer = (UwIF) Naming.lookup("UwServer");
-        compensationServer = (CompensationIF) Naming.lookup("CompensationServer");
+        insuranceServer = (InsuranceIF) Naming.lookup("//localhost:1010/InsuranceServer");
+        uwServer = (UwIF) Naming.lookup("//localhost:3030/UwServer");
+        compensationServer = (CompensationIF) Naming.lookup("//localhost:2020/CompensationServer");
         demandServer = (DemandIF) Naming.lookup("//localhost:5050/DemandServer");
         customerServer = (CustomerIF) Naming.lookup("//localhost:6060/CustomerServer");
         contractServer = (ContractIF) Naming.lookup("//localhost:8080/ContractServer");
@@ -51,9 +49,9 @@ public class Client {
                     case "2":
                         client.printCompensationMenu(objectReader);
                         break;
-//                    case "3":
-//                        client.printMarketingMenu(objectReader);
-//                        break;
+                    case "3":
+                        client.printMarketingMenu(objectReader);
+                        break;
                     case "x":
                         return;
                     default:
@@ -64,7 +62,6 @@ public class Client {
             System.out.println(e.getMessage());
         }
     }
-    //
     private void printCompensationMenu(BufferedReader objectReader) {
         try {
             while (true) {
@@ -82,7 +79,7 @@ public class Client {
                         examineCompensation(objectReader);
                         break;
                     case "3":
-//                        investigateDamage(objectReader);
+                        investigateDamage(objectReader);
                         break;
                     case "4":
                         evaluateCompensation(objectReader);
@@ -96,7 +93,7 @@ public class Client {
             System.out.println(e.getMessage());
         }
     }
-        private void printMarketingMenu(BufferedReader objectReader) {
+    private void printMarketingMenu(BufferedReader objectReader) {
           try {
             while (true) {
                 System.out.println("1. 고객정보관리");
@@ -125,7 +122,7 @@ public class Client {
             System.out.println(e.getMessage());
         }
             System.out.println("프로그램 종료");
-        }
+    }
     private void printContractMenu(BufferedReader objectReader) {
         try {
             while (true) {
@@ -159,7 +156,6 @@ public class Client {
             System.out.println(e.getMessage());
         }
     }
-    //ok
     private void designInsurance(BufferedReader objectReader) throws IOException, InvalidInputException {
         while (true) {
             System.out.println("1. 보장내용 입력");
@@ -190,7 +186,6 @@ public class Client {
             }
         }
     }
-    //ok
     private void showPremiumRateMenu(BufferedReader objectReader) throws IOException, InvalidInputException {
         System.out.println("1. 상품 리스트");
         System.out.println("2. 직접 산출");
@@ -213,12 +208,10 @@ public class Client {
             printPremiumRate(premiumRate);
         }
     }
-    //ok
     private void printPremiumRate(PremiumRate premiumRate) throws RemoteException {
         float rate = insuranceServer.calculate(premiumRate);
         System.out.println("요율은 ("+Math.round(rate*10.0)/10.0+"%) 입니다.");
     }
-    //ok
     private void showInsuranceList() {
         int cnt = 1;
         try {
@@ -230,7 +223,6 @@ public class Client {
             System.out.println(e.getMessage());
         }
     }
-    //ok
     private void showUnAuthorizeInsurance() {
         int cnt = 1;
         try {
@@ -244,7 +236,6 @@ public class Client {
             System.out.println(e.getMessage());
         }
     }
-    //ok
     private void authorizeORSave(BufferedReader objectReader, Insurance insurance) throws IOException, EmptyValueException {
         while (true) {
             System.out.println("1. 상품 인가");
@@ -276,7 +267,6 @@ public class Client {
             }
         }
     }
-    //ok
     public void authorizeInsurance(BufferedReader objectReader) throws InvalidInputException, IOException, EmptyValueException, ConnectErrorException {
         showInsuranceList();
         Integer choiceNumber = readIntegerInput(objectReader, "상품번호를 입력해주세요");
@@ -287,7 +277,6 @@ public class Client {
             insuranceServer.createInsurance(choiceInsurance);
         }
     }
-    //ok
     private Insurance createInsurance(BufferedReader objectReader) throws IOException, InvalidInputException, EmptyValueException {
         while (true) {
             try {
@@ -312,7 +301,6 @@ public class Client {
             }
         }
     }
-    //ok
     private void validateInsuranceInput(String coverageTarget, String coverageEvent, Integer coverageAmount, Integer coveragePeriod, Integer insuranceFee, String insuranceName) throws EmptyValueException {
         List<String> missingFields = new ArrayList<>();
         if (coverageAmount <= 0) {
@@ -338,7 +326,6 @@ public class Client {
             throw new EmptyValueException(message);
         }
     }
-    //ok
     private Integer readIntegerInput(BufferedReader objectReader, String message) throws IOException{
         while (true) {
             try {
@@ -386,7 +373,6 @@ public class Client {
             throw new RuntimeException(e);
         }
     }
-    //ok
     private void uwStarted(BufferedReader objectReader) throws RemoteException, IOException, InvalidInputException {
         showInsuranceList();
         Integer choiceNumber = readIntegerInput(objectReader, "상품번호를 입력해주세요");
@@ -623,90 +609,6 @@ public class Client {
             System.out.println("-------------------------------------------------------------");
             ++count;}
     }
-//     //인수심사
-//     private void underWriting(BufferedReader objectReader) {
-
-
-//         UW uw = new UW();
-//         System.out.println("인수 심사를 진행합니다.");
-
-//         System.out.println("--청약서 확인.--");
-//         uw.setApplicationForm(true);
-//         System.out.println("--증권 확인.--");
-//         uw.setSecurity(true);
-
-//         uw.underWriting(); //자동심사, return true;
-//         if (uw.underWriting()) {
-//             System.out.println("심사가 성공했습니다.");
-//         }
-//         else
-//             System.out.println("심사에 실패했습니다.");
-
-
-//         //인수 여부 확인?
-
-//     }
-
-//     //재보험 처리
-//     private void calculateReinsuranceFee(BufferedReader objectReader) {
-
-
-//         UW uw = new UW();
-
-//         System.out.println("재보험 처리를 진행합니다.");
-
-//         //재보험 처리
-//         if(uw.Reinsurance()) {
-//             System.out.println("재보험 승인에 성공했습니다.");
-//             System.out.println("재보험료 : " + uw.calculateReinsuranceFee());
-//         }
-//         else
-//             System.out.println("재보험 승인에 실패했습니다.");
-
-
-//     }
-
-    //     //손해율관리
-//     private void calculateLossRate(BufferedReader objectReader) {
-//         LossRate lossRate = new LossRate();
-//         System.out.println("계산을 위한 데이터를 입력해주세요.");
-//         System.out.println("사고 종류 : ");
-//         String accidentType = null;
-//         try {
-//             accidentType = objectReader.readLine().trim();
-//         } catch (IOException e) {
-//             e.printStackTrace();
-//         }
-//         lossRate.setAccidentType(accidentType);
-//         System.out.println("보상 한도 : ");
-//         int coverageLimit = 0;
-//         try {
-//             coverageLimit = Integer.parseInt(objectReader.readLine());
-//             //objectReader.readLine().trim();
-//         } catch (IOException e) {
-//             e.printStackTrace();
-//         }
-//         lossRate.setCoverageLimit(coverageLimit);
-//         System.out.println("보험료 : ");
-//         int insuranceFee = 0;
-//         try {
-//             insuranceFee = Integer.parseInt(objectReader.readLine());
-//         } catch (IOException e) {
-//             e.printStackTrace();
-//         }
-//         lossRate.setInsuranceFee(insuranceFee);
-//         System.out.println("지급된 보상액 : ");
-//         int paedAmount = 0;
-//         try {
-//             paedAmount = Integer.parseInt(objectReader.readLine());
-//         } catch (IOException e) {
-//             e.printStackTrace();
-//         }
-//         lossRate.setPaidAmount(paedAmount);
-//         //계산..
-//         lossRate.calculateLossRate();
-//         System.out.println("계산된 손해액 : " + lossRate.getLossRate());
-//     }
     private void evaluateCompensation(BufferedReader objectReader) throws ConnectErrorException, IOException, EmptyValueException, SQLException {
         try {
             showCompensationList();
@@ -818,7 +720,6 @@ public class Client {
             return;
         }
     }
-    //ok
     private void examineCompensation(BufferedReader objectReader) throws ConnectErrorException, IOException {
         System.out.println("==============보상 평가===============");
         showCompensationList();
@@ -837,7 +738,6 @@ public class Client {
             System.out.println("유효하지 않은 입력입니다.");
         }
     }
-    //ok
     private void manageCompensation(BufferedReader objectReader) throws ConnectErrorException, IOException {
         System.out.println("==============보상 관리===============");
         showCompensationList();
@@ -863,7 +763,6 @@ public class Client {
                 System.out.println("잘못된 입력입니다.");
         }
     }
-    //ok
     private void editCompensation(BufferedReader objectReader) throws IOException, ConnectErrorException {
         System.out.println("\n관리할 보상의 번호를 입력하시오: ");
         String compensationId = objectReader.readLine().trim();
@@ -891,13 +790,11 @@ public class Client {
             return;
         }
     }
-    //ok
     private void deleteCompensation(BufferedReader objectReader) throws IOException {
         Integer compensationNumber = readIntegerInput(objectReader, "폐기할 보상의 번호를 입력하세요 : ");
         Compensation compensation = compensationServer.retrieveAllCompensation().get(compensationNumber - 1);
         compensationServer.deleteCompensation(compensation);
     }
-    //ok
     private void showCompensationList() throws ConnectErrorException {
         int count = 1;
         System.out.println("-------------보상 목록--------------");
