@@ -1,4 +1,4 @@
-package sales;
+package Domain;
 
 import insurance.Insurance;
 

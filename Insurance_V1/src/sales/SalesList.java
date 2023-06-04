@@ -1,6 +1,6 @@
-package sales;
+package Domain;
 
-import demand.Demand;
+import Domain.Demand;
 
 import java.util.ArrayList;
 

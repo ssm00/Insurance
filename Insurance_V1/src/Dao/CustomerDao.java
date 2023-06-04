@@ -1,10 +1,10 @@
 package Dao;
 
-import contract.Contract;
-import contract.ContractListImpl;
-import customer.Customer;
-import customer.CustomerListImpl;
-import sales.Sale;
+import Domain.Contract;
+import Domain.ContractListImpl;
+import Domain.Customer;
+import Domain.CustomerListImpl;
+import Domain.Sale;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

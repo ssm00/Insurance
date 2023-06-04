@@ -1,4 +1,4 @@
-package customer;
+package Domain;
 
 public class Customer {
 	private int customerID;

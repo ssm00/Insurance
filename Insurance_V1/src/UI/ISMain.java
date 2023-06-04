@@ -6,17 +6,17 @@ import Dao.*;
 
 import compensation.Compensation;
 import compensation.CompensationListImpl;
-import contract.Contract;
-import contract.ContractListImpl;
-import customer.Customer;
-import customer.CustomerListImpl;
-import demand.Demand;
-import demand.DemandListImpl;
+import Domain.Contract;
+import Domain.ContractListImpl;
+import Domain.Customer;
+import Domain.CustomerListImpl;
+import Domain.Demand;
+import Domain.DemandListImpl;
 import insurance.Insurance;
 import insurance.InsuranceListImpl;
 import insurance.PremiumRate;
-import sales.Sale;
-import sales.SalesListImpl;
+import Domain.Sale;
+import Domain.SalesListImpl;
 import utils.*;
 import uw.UW;
 

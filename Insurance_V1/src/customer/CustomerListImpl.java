@@ -1,6 +1,6 @@
-package customer;
+package Domain;
 
-import contract.Contract;
+import Domain.Contract;
 
 import java.util.ArrayList;
 
