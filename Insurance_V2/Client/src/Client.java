@@ -31,10 +31,10 @@ public class Client {
         insuranceServer = (InsuranceIF) Naming.lookup("InsuranceServer");
         uwServer = (UwIF) Naming.lookup("UwServer");
         compensationServer = (CompensationIF) Naming.lookup("CompensationServer");
-        demandServer = (DemandIF) Naming.lookup("DemandServer");
-        customerServer = (CustomerIF) Naming.lookup("CustomerServer");
-        contractServer = (ContractIF) Naming.lookup("ContractServer");
-        saleServer = (SaleIF) Naming.lookup("SaleServer");
+        demandServer = (DemandIF) Naming.lookup("//localhost:5050/DemandServer");
+        customerServer = (CustomerIF) Naming.lookup("//localhost:6060/CustomerServer");
+        contractServer = (ContractIF) Naming.lookup("//localhost:8080/ContractServer");
+        saleServer = (SaleIF) Naming.lookup("//localhost:9090/SaleServer");
     }
 
     public static void main(String[] args) throws NotBoundException, IOException {
@@ -707,7 +707,7 @@ public class Client {
 //         lossRate.calculateLossRate();
 //         System.out.println("계산된 손해액 : " + lossRate.getLossRate());
 //     }
-    private void evaluateCompensation(BufferedReader objectReader) throws ConnectErrorException, IOException, EmptyValueException {
+    private void evaluateCompensation(BufferedReader objectReader) throws ConnectErrorException, IOException, EmptyValueException, SQLException {
         try {
             showCompensationList();
             System.out.println("===========보상 심사============");
@@ -729,7 +729,7 @@ public class Client {
         String userInput = objectReader.readLine().trim();
         switch (userInput) {
             case "1":
-//                confirm(objectReader, selectedCompensation);
+                confirm(objectReader, selectedCompensation);
                 break;
             case "x":
                 return;
@@ -737,85 +737,87 @@ public class Client {
                 System.out.println("잘못된 입력입니다.");
         }
     }
-//    private void confirm(BufferedReader objectReader, Compensation selectedCompensation) throws IOException, ConnectErrorException, EmptyValueException {
-//        System.out.println("해당 자동차 보험에 대한 심사 결재를 요청드립니다.");
-//        System.out.println("-------------------------------------------------------------");
-//        System.out.println("보상 ID: " + selectedCompensation.getCompensationId());
-//        System.out.println("보상금: " + selectedCompensation.getCompensationMoney());
-//        System.out.println("손해액: " + selectedCompensation.getDamage());
-//        System.out.println("1. 심사 승인 후 결재 확인");
-//        System.out.println("2. 거절");
-//        System.out.println("x. 취소");
-//        String userInput = objectReader.readLine().trim();
-//        switch (userInput) {
-//            case "1":
-//                System.out.println("보상 심사가 완료되었습니다. 확인 부탁드립니다.");
-//                payCompensation(objectReader);
-//                break;
-//            case "2":
-//                System.out.println("보상 심사가 거절되었습니다.");
-//            case "x":
-//                return;
-//            default:
-//                System.out.println("잘못된 입력입니다.");
-//        }
-//    }
-//    private void payCompensation(BufferedReader objectReader) throws ConnectErrorException, IOException {
-//        System.out.println("==========보상금 지급===========");
-//        Demand demand = demandList.get(0);
-//        System.out.println("고객명" + demand.getCustomerName());
-//        System.out.println("계좌번호" + demand.getAccountNumber());
-//        System.out.println("은행명" + demand.getBank());
-//        System.out.println("예금주 정보" + demand.getInformation());
-//        System.out.println("1. 보상금 지급");
-//        System.out.println("x. 취소");
-//        String userInput = objectReader.readLine().trim();
-//        if (userInput == "1") {
-//            System.out.println("청구된 보상금이 입금되었습니다.");
-//            return;
-//        }
-//        if (userInput == "x") {
-//            System.out.println("모든 변경 사항을 취소합니다.\n확인");
-//            return;
-//        }
-//    }
-//    private void investigateDamage(BufferedReader objectReader) throws ConnectErrorException, IOException {
-//        System.out.println("==============손해 조사===============");
-//        int count = 1;
-//        System.out.println("-------------접수 목록--------------");
-//        try {
-//            for (Demand demand: demandList) {
-//                System.out.println(count + ". ");
-//                System.out.println("ID: " + demand.getDemandId());
-//                System.out.println("고객 이름: " + demand.getCustomerName());
-//                System.out.println("사고 유형: " + demand.getAccidentType());
-//                System.out.println("사고 날짜(yyyymmdd): " + demand.getAccidentDate());
-//                System.out.println("진단명: " + demand.getDiagnosis());
-//                System.out.println("치료 병원: " + demand.getTreatmentHospital());
-//                System.out.println("###############################################\n");
-//                ++count;
-//            }
-//        } catch (NullPointerException e) {
-//            throw new ConnectErrorException("시스템에 장애가 발생하였습니다. 관리자에게 문의하십시오.");
-//        }
-//        System.out.println("지급책임이 있습니까?");
-//        System.out.println("1. 예");
-//        System.out.println("2. 아니오");
-//        String userInput = objectReader.readLine().trim();
-//        if (userInput == "1") {
-//            System.out.println("지급 금액을 입력하십시오");
-//            String compensation = objectReader.readLine().trim();
-//            System.out.println(compensation + "원을 지급합니다.");
-//            System.out.println("신청하신 사고 내역의 손해 조사 및 보험금 산정이 완료되었습니다.");
-//            return;
-//        }
-//        if (userInput == "2") {
-//            System.out.println("지급 불가 사유를 입렧하십시오");
-//            String denial = objectReader.readLine().trim();
-//            System.out.println(denial + " 사유로 인하여 보험금 지급이 불가합니다.");
-//            return;
-//        }
-//    }
+    private void confirm(BufferedReader objectReader, Compensation selectedCompensation) throws IOException, ConnectErrorException, EmptyValueException, SQLException {
+        System.out.println("해당 자동차 보험에 대한 심사 결재를 요청드립니다.");
+        System.out.println("-------------------------------------------------------------");
+        System.out.println("보상 ID: " + selectedCompensation.getCompensationId());
+        System.out.println("보상금: " + selectedCompensation.getCompensationMoney());
+        System.out.println("손해액: " + selectedCompensation.getDamage());
+        System.out.println("1. 심사 승인 후 결재 확인");
+        System.out.println("2. 거절");
+        System.out.println("x. 취소");
+        String userInput = objectReader.readLine().trim();
+        switch (userInput) {
+            case "1":
+                System.out.println("보상 심사가 완료되었습니다. 확인 부탁드립니다.");
+                payCompensation(objectReader);
+                break;
+            case "2":
+                System.out.println("보상 심사가 거절되었습니다.");
+            case "x":
+                return;
+            default:
+                System.out.println("잘못된 입력입니다.");
+        }
+    }
+    private void payCompensation(BufferedReader objectReader) throws ConnectErrorException, IOException, SQLException {
+        System.out.println("==========보상금 지급===========");
+        Demand demand = demandServer.getDemandList().get(0);
+        System.out.println("고객명" + demand.getCustomerName());
+        System.out.println("계좌번호" + demand.getAccountNumber());
+        System.out.println("은행명" + demand.getBank());
+        System.out.println("예금주 정보" + demand.getInformation());
+        System.out.println("1. 보상금 지급");
+        System.out.println("x. 취소");
+        String userInput = objectReader.readLine().trim();
+        if (userInput == "1") {
+            System.out.println("청구된 보상금이 입금되었습니다.");
+            return;
+        }
+        if (userInput == "x") {
+            System.out.println("모든 변경 사항을 취소합니다.\n확인");
+            return;
+        }
+    }
+    private void investigateDamage(BufferedReader objectReader) throws ConnectErrorException, IOException {
+        System.out.println("==============손해 조사===============");
+        int count = 1;
+        System.out.println("-------------접수 목록--------------");
+        try {
+            for (Demand demand: demandServer.getDemandList()) {
+                System.out.println(count + ". ");
+                System.out.println("ID: " + demand.getDemandId());
+                System.out.println("고객 이름: " + demand.getCustomerName());
+                System.out.println("사고 유형: " + demand.getAccidentType());
+                System.out.println("사고 날짜(yyyymmdd): " + demand.getAccidentDate());
+                System.out.println("진단명: " + demand.getDiagnosis());
+                System.out.println("치료 병원: " + demand.getTreatmentHospital());
+                System.out.println("###############################################\n");
+                ++count;
+            }
+        } catch (NullPointerException e) {
+            throw new ConnectErrorException("시스템에 장애가 발생하였습니다. 관리자에게 문의하십시오.");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        System.out.println("지급책임이 있습니까?");
+        System.out.println("1. 예");
+        System.out.println("2. 아니오");
+        String userInput = objectReader.readLine().trim();
+        if (userInput == "1") {
+            System.out.println("지급 금액을 입력하십시오");
+            String compensation = objectReader.readLine().trim();
+            System.out.println(compensation + "원을 지급합니다.");
+            System.out.println("신청하신 사고 내역의 손해 조사 및 보험금 산정이 완료되었습니다.");
+            return;
+        }
+        if (userInput == "2") {
+            System.out.println("지급 불가 사유를 입렧하십시오");
+            String denial = objectReader.readLine().trim();
+            System.out.println(denial + " 사유로 인하여 보험금 지급이 불가합니다.");
+            return;
+        }
+    }
     //ok
     private void examineCompensation(BufferedReader objectReader) throws ConnectErrorException, IOException {
         System.out.println("==============보상 평가===============");

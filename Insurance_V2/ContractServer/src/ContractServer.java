@@ -12,7 +12,7 @@ public class ContractServer extends UnicastRemoteObject implements Remote {
     public static void main(String[] args) {
         try {
             ContractServer contractServer = new ContractServer();
-            Naming.rebind("//localhost:8080/MathServer", contractServer);
+            Naming.rebind("//localhost:8080/ContractServer", contractServer);
             System.out.println("ContractServer is Ready");
         }catch(RemoteException e){e.printStackTrace();}
         catch (MalformedURLException e){e.printStackTrace();}
