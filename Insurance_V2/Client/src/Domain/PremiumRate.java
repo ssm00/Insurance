@@ -21,13 +21,11 @@ public class PremiumRate implements Serializable {
 	}
 	public PremiumRate() {
 	}
-	public PremiumRate generateORM(int premiumRateID, float accidentRate, float expectedProfitRate, float rate) {
-		PremiumRate premiumRate = new PremiumRate();
-		premiumRate.setPremiumRateID(premiumRateID);
-		premiumRate.setAccidentRate(accidentRate);
-		premiumRate.setExpectedProfitRate(expectedProfitRate);
-		premiumRate.setRate(rate);
-		return premiumRate;
+	public void generateORM(int premiumRateID, float accidentRate, float expectedProfitRate, float rate) {
+		this.premiumRateID = premiumRateID;
+		this.accidentRate = accidentRate;
+		this.expectedProfitRate = expectedProfitRate;
+		this.rate = rate;
 	}
 	public float calculate(){
 		rate = (float) ((accidentRate * 20) + (expectedProfitRate * 10));
@@ -53,6 +51,7 @@ public class PremiumRate implements Serializable {
 	public float getRate() {
 		return rate;
 	}
+
 	public void setPremiumRateID(int premiumRateID) {
 		this.premiumRateID = premiumRateID;
 	}
