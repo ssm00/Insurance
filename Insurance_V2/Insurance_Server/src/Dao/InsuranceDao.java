@@ -31,13 +31,13 @@ public class InsuranceDao extends Dao {
 
     public void update(Insurance beforeInsurance, Insurance afterInsurance){
         String query = "update insurance set insuranceName = "+ '\''+ afterInsurance.getInsuranceName() +'\''+ ","+
-                " coverageAmount = " +  afterInsurance.getInsuranceName() + ","+
+                " coverageAmount = " +  afterInsurance.getCoverageAmount() + ","+
                 " coverageEvent = " + '\''+ afterInsurance.getCoverageEvent() +'\''+ ","+
                 " coveragePeriod = " +  afterInsurance.getCoveragePeriod() + ","+
                 " coverageTarget = " +'\''+ afterInsurance.getCoverageTarget() +'\''+ ","+
                 " insuranceFee = "+ afterInsurance.getInsuranceFee()+ ","+
                 " authorizeState = "+ afterInsurance.isAuthorize()+ ","+
-                " premiumRate = " + afterInsurance.getPremiumRate().getPremiumRateID()+
+                " premiumRateID = " + afterInsurance.getPremiumRate().getPremiumRateID()+
                 " where insuranceId = " + beforeInsurance.getInsuranceID() + ";";
         System.out.println(query);
         super.update(query);

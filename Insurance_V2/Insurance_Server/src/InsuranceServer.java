@@ -52,6 +52,7 @@ public class InsuranceServer extends UnicastRemoteObject implements InsuranceIF,
     public boolean authorize(Insurance insurance) throws InvalidInputException, ConnectErrorException, EmptyValueException, IOException {
         if (insurance != null) {
             insurance.setAuthorizeState(true);
+            insuranceDao.update(insurance, insurance);
             return true;
         } else {
             return false;

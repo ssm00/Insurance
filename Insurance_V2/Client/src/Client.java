@@ -253,8 +253,8 @@ public class Client {
             showInsuranceList();
             Integer choiceNumber = readIntegerInput(objectReader, "상품번호를 입력해주세요");
             Insurance choiceInsurance = insuranceServer.retrieveAllInsurance().get(choiceNumber - 1);
-            insuranceServer.calculateRate(choiceInsurance);
-            printPremiumRate(choiceInsurance.getPremiumRate());
+            float rate = insuranceServer.calculateRate(choiceInsurance);
+            printPremiumRate(rate);
         } else if (choiceInsuranceMenu.equals("2")) {
             Integer coverageAmount = readIntegerInput(objectReader, "보장금액: ");
             Integer coveragePeriod = readIntegerInput(objectReader, "보장기간: ");
@@ -264,11 +264,11 @@ public class Client {
             String coverageEvent = objectReader.readLine().trim();
             Integer insuranceFee = readIntegerInput(objectReader, "보험료: ");
             PremiumRate premiumRate = insuranceServer.createPremiumRate(1, coverageAmount, coverageEvent, coveragePeriod, coverageTarget, insuranceFee);
-            printPremiumRate(premiumRate);
+            float rate = insuranceServer.calculate(premiumRate);
+            printPremiumRate(rate);
         }
     }
-    private void printPremiumRate(PremiumRate premiumRate) throws RemoteException {
-        float rate = insuranceServer.calculate(premiumRate);
+    private void printPremiumRate(float rate) throws RemoteException {
         System.out.println("요율은 ("+Math.round(rate*10.0)/10.0+"%) 입니다.");
     }
     private void showInsuranceList() {
@@ -333,7 +333,6 @@ public class Client {
         boolean authorizeState = insuranceServer.authorize(choiceInsurance);
         if (authorizeState) {
             System.out.println("상품이 인가되었습니다");
-            insuranceServer.createInsurance(choiceInsurance);
         }
     }
     private Insurance createInsurance(BufferedReader objectReader) throws IOException, InvalidInputException, EmptyValueException {
@@ -352,7 +351,8 @@ public class Client {
                 validateInsuranceInput(coverageTarget, coverageEvent, coverageAmount, coveragePeriod, insuranceFee, insuranceName);
                 Insurance insurance = insuranceServer.createInsurance(insuranceID, insuranceName, coverageAmount, coverageEvent, coveragePeriod, coverageTarget, insuranceFee);
                 PremiumRate premiumRate = insuranceServer.getPremiumRate(insurance);
-                printPremiumRate(premiumRate);
+                float rate = insuranceServer.calculate(premiumRate);
+                printPremiumRate(rate);
                 insuranceServer.createPremiumRate(insurance.getPremiumRate());
                 return insurance;
             } catch (EmptyValueException e) {
