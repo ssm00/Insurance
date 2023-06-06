@@ -8,6 +8,17 @@
       <change beforePath="$PROJECT_DIR$/../Client/src/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/src/Client.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Client/src/Domain/Insurance.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/src/Domain/Insurance.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../DemandServer/src/DemandServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/../DemandServer/src/DemandServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/src/Domain/Insurance.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/src/Domain/Insurance.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/src/Domain/PremiumRate.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/src/Domain/PremiumRate.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DemandServer/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../DemandServer/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Insurance_Server/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Insurance_Server/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Insurance_Server/src/Dao/InsuranceDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Insurance_Server/src/Dao/InsuranceDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Insurance_Server/src/Dao/PremiumRateDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Insurance_Server/src/Dao/PremiumRateDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Insurance_Server/src/Domain/Insurance.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Insurance_Server/src/Domain/Insurance.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Insurance_Server/src/Domain/PremiumRate.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Insurance_Server/src/Domain/PremiumRate.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Uw_Server/src/Domain/Insurance.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Uw_Server/src/Domain/Insurance.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Uw_Server/src/Domain/PremiumRate.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Uw_Server/src/Domain/PremiumRate.java" afterDir="false" />
+
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,19 +45,18 @@
   <component name="ProjectViewState">
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/GitHub/CardCross/Insurance/Insurance_V2/Client",
-    "project.structure.last.edited": "Libraries",
-    "project.structure.proportion": "0.15234375",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Ea/분산1/java/Insurance/Insurance_V2/Compensation_Server&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15234375&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Ea\분산1\java\Insurance_Rmi\Compensation_Server\src\Dao" />
@@ -67,7 +77,9 @@
       <option name="presentableId" value="Default" />
       <updated>1685787358500</updated>
       <workItem from="1685787359989" duration="804000" />
-      <workItem from="1685863768732" duration="3099000" />
+      <workItem from="1685863768732" duration="3713000" />
+      <workItem from="1685963054457" duration="15000" />
+      <workItem from="1685963583665" duration="1278000" />
     </task>
     <servers />
   </component>

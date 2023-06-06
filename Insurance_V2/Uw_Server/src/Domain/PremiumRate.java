@@ -19,7 +19,9 @@ public class PremiumRate implements Serializable {
 		this.accidentRate += coverageTarget.equals("자동차") ? COVERAGE_TARGET_MULTIPLIER : 0;
 		this.expectedProfitRate = insuranceFee * INSURANCE_FEE_MULTIPLIER;
 	}
-	public PremiumRate(int premiumRateID, float accidentRate, float expectedProfitRate, float rate) {
+	public PremiumRate() {
+	}
+	public void generateORM(int premiumRateID, float accidentRate, float expectedProfitRate, float rate) {
 		this.premiumRateID = premiumRateID;
 		this.accidentRate = accidentRate;
 		this.expectedProfitRate = expectedProfitRate;
@@ -48,5 +50,21 @@ public class PremiumRate implements Serializable {
 	}
 	public float getRate() {
 		return rate;
+	}
+
+	public void setPremiumRateID(int premiumRateID) {
+		this.premiumRateID = premiumRateID;
+	}
+
+	public void setAccidentRate(float accidentRate) {
+		this.accidentRate = accidentRate;
+	}
+
+	public void setExpectedProfitRate(float expectedProfitRate) {
+		this.expectedProfitRate = expectedProfitRate;
+	}
+
+	public void setRate(float rate) {
+		this.rate = rate;
 	}
 }

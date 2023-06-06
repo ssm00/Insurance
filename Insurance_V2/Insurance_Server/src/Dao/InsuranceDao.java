@@ -58,15 +58,13 @@ public class InsuranceDao extends Dao {
                 PremiumRate premiumRate = null;
                 while(premiumRateInfo.next()) {
                     premiumRate = new PremiumRate();
-                    premiumRate.generateORM(
-                            premiumRateInfo.getInt("premiumRateID"),
+                    premiumRate.generateORM(premiumRateInfo.getInt("premiumRateID"),
                             premiumRateInfo.getFloat("accidentRate"),
                             premiumRateInfo.getFloat("expectedProfitRate"),
                             premiumRateInfo.getFloat("rate"));
                 }
                 Insurance insurance = new Insurance();
-                insurance.generateORM(
-                        resultSet.getInt("insuranceID"),
+                insurance.generateORM(resultSet.getInt("insuranceID"),
                         resultSet.getString("insuranceName"),
                         resultSet.getInt("coverageAmount"),
                         resultSet.getString("coverageEvent"),

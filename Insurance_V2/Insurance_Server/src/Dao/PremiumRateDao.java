@@ -44,8 +44,7 @@ public class PremiumRateDao extends Dao {
         try {
             while(resultSet.next()) {
                 PremiumRate premiumRate = new PremiumRate();
-                premiumRate.generateORM(
-                        resultSet.getInt("premiumRateID"),
+                premiumRate.generateORM(resultSet.getInt("premiumRateID"),
                         resultSet.getFloat("accidentRate"),
                         resultSet.getFloat("expectedProfitRate"),
                         resultSet.getFloat("rate"));

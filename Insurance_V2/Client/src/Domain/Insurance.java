@@ -28,18 +28,15 @@ public class Insurance implements Serializable {
 	}
 	public Insurance() {
 	}
-	public Insurance generateORM(int insuranceID, String insuranceName, int coverageAmount, String coverageEvent, int coveragePeriod, String coverageTarget, int insuranceFee, boolean authorizeState, PremiumRate premiumRate) {
-		Insurance insurance = new Insurance();
-		insurance.setInsuranceID(insuranceID);
-		insurance.setInsuranceName(insuranceName);
-		insurance.setCoverageAmount(coverageAmount);
-		insurance.setCoverageEvent(coverageEvent);
-		insurance.setCoveragePeriod(coveragePeriod);
-		insurance.setCoverageTarget(coverageTarget);
-		insurance.setInsuranceFee(insuranceFee);
-		insurance.setAuthorizeState(authorizeState);
-		insurance.setPremiumRate(premiumRate);
-		return insurance;
+	public void generateORM(int insuranceID, String insuranceName, int coverageAmount, String coverageEvent, int coveragePeriod, String coverageTarget, int insuranceFee, boolean authorizeState, PremiumRate premiumRate) {
+		this.insuranceID = insuranceID;
+		this.insuranceName = insuranceName;
+		this.coverageAmount = coverageAmount;
+		this.coverageEvent = coverageEvent;
+		this.coveragePeriod = coveragePeriod;
+		this.coverageTarget = coverageTarget;
+		this.insuranceFee = insuranceFee;
+		this.authorizeState = authorizeState;
 	}
 	public boolean authorize(String connection) throws InvalidInputException, ConnectErrorException, EmptyValueException, IOException {
 		if (connection.equals("1")) {
