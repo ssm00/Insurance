@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="6ea195b4-2544-4ab3-bce3-7da87f9b323d" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../Client/src/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/src/Client.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/src/Domain/Insurance.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/src/Domain/Insurance.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DemandServer/src/DemandServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/../DemandServer/src/DemandServer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Client/src/Domain/Insurance.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/src/Domain/Insurance.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Client/src/Domain/PremiumRate.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/src/Domain/PremiumRate.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../DemandServer/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../DemandServer/.idea/misc.xml" afterDir="false" />
@@ -12,6 +18,7 @@
       <change beforePath="$PROJECT_DIR$/../Insurance_Server/src/Domain/PremiumRate.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Insurance_Server/src/Domain/PremiumRate.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Uw_Server/src/Domain/Insurance.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Uw_Server/src/Domain/Insurance.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Uw_Server/src/Domain/PremiumRate.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Uw_Server/src/Domain/PremiumRate.java" afterDir="false" />
+
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

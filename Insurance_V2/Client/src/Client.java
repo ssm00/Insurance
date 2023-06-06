@@ -31,6 +31,7 @@ public class Client {
         customerServer = (CustomerIF) Naming.lookup("//localhost:6060/CustomerServer");
         contractServer = (ContractIF) Naming.lookup("//localhost:8080/ContractServer");
         saleServer = (SaleIF) Naming.lookup("//localhost:9090/SaleServer");
+
     }
     public static void main(String[] args) throws NotBoundException, IOException {
         BufferedReader objectReader = new BufferedReader(new InputStreamReader(System.in));
@@ -49,16 +50,76 @@ public class Client {
                     case "3":
                         client.printMarketingMenu(objectReader);
                         break;
+                    case "4":
+                        client.createDemand(objectReader);
+                        break;
                     case "x":
                         return;
                     default:
                         System.out.println("Invaild choice !!!");
                 }
             }
-        } catch (IOException e) {
+        } catch (IOException | SaveFailedException e) {
             System.out.println(e.getMessage());
         }
     }
+
+    private void createDemand(BufferedReader objectReader) throws IOException, SaveFailedException {
+
+        System.out.println("*********************MENU********************");
+        System.out.println("1. 보험금 청구");
+        System.out.println("x. 나가기");
+        String sChoice = objectReader.readLine().trim();
+        try{
+            switch(sChoice) {
+                case "1":
+                    System.out.println("가입한 보험ID를 입력해주세요.");
+                    String demandID = objectReader.readLine().trim();
+                    System.out.println("고객 이름을 입력해주세요.");
+                    String customerName = objectReader.readLine().trim();
+                    System.out.println("사고 날짜를 입력해주세요.");
+                    String accidentDate = objectReader.readLine().trim();
+                    System.out.println("사고 종류를 입력해주세요.");
+                    String accidentType = objectReader.readLine().trim();
+                    System.out.println("세부사항을 입력해주세요.");
+                    String details = objectReader.readLine().trim();
+                    System.out.println("신분증를 첨부해주세요.");
+                    String copyofIdentification = objectReader.readLine().trim();
+                    System.out.println("진단서를 첨부해주세요.");
+                    String diagnosis = objectReader.readLine().trim();
+                    System.out.println("증빙서류를 첨부해주세요.");
+                    String documentaryEvidence = objectReader.readLine().trim();
+                    System.out.println("병원이름을 입력해주세요.");
+                    String treatmentHospital = objectReader.readLine().trim();
+                    System.out.println("계좌번호를 입력해주세요.");
+                    String accountNumber = objectReader.readLine().trim();
+                    System.out.println("은행명을 입력해주세요.");
+                    String bank = objectReader.readLine().trim();
+                    System.out.println("예금주를 입력해주세요.");
+                    String information = objectReader.readLine().trim();
+
+                    if(demandID.isEmpty() || accidentDate.isEmpty()|| accidentType.isEmpty()|| copyofIdentification.isEmpty()|| details.isEmpty()
+                            || diagnosis.isEmpty()|| documentaryEvidence.isEmpty()|| treatmentHospital.isEmpty()|| customerName.isEmpty()
+                            || bank.isEmpty()|| information.isEmpty())
+                        throw new EmptyValueException("모든 내용을 빠짐없이 입력해주세요.");
+                    else{
+                        demandServer.createDemand(demandID,Integer.parseInt(accidentDate),accidentType,Integer.parseInt(copyofIdentification),
+                                details,diagnosis,Integer.parseInt(documentaryEvidence),treatmentHospital, customerName, accountNumber, bank, information);
+                        System.out.println("정보를 저장했습니다.");
+                    }
+                    break;
+                case "x":
+                    break;
+            }
+        }catch (NumberFormatException e){
+            throw new SaveFailedException();
+        } catch (SQLException | EmptyValueException e) {
+            throw new RuntimeException(e);
+        }
+
+
+    }
+
     private void printCompensationMenu(BufferedReader objectReader) {
         try {
             while (true) {
@@ -66,6 +127,7 @@ public class Client {
                 System.out.println("2. 보상평가");
                 System.out.println("3. 손해조사");
                 System.out.println("4. 보상심사");
+
                 System.out.println("x. 나가기");
                 String userInput = objectReader.readLine().trim();
                 switch (userInput) {
@@ -427,6 +489,7 @@ public class Client {
         System.out.println("1. 계약");
         System.out.println("2. 보상");
         System.out.println("3. 마케팅");
+        System.out.println("4. 보험금 청구");
         System.out.println("x. 종료하기");
     }
     private void contractStatics(BufferedReader objectReader) throws IOException, NoExpiredContractException, SQLException {

@@ -3,7 +3,6 @@ package Domain;
 import utils.ConnectErrorException;
 import utils.EmptyValueException;
 import utils.InvalidInputException;
-
 import java.io.IOException;
 import java.io.Serializable;
 
@@ -43,9 +42,7 @@ public class Insurance implements Serializable {
 		if (connection.equals("1")) {
 			setAuthorizeState(true);
 			return true;
-		}else {
-			return false;
-		}
+		}else {return false;}
 	}
 	public float calculateRate(){
 		this.premiumRate = new PremiumRate(insuranceID,coverageAmount,coverageEvent,coveragePeriod, coverageTarget, insuranceFee);

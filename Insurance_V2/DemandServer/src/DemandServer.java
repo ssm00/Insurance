@@ -11,7 +11,6 @@ import java.util.ArrayList;
 
 //start rmiregistry 5050 -J-Djava.class.path=C:\Ea\분산1\java\Insurance\Insurance_V2\DemandServer\out\production\DemandServer
 public class DemandServer extends UnicastRemoteObject implements DemandIF {
-
     DemandDao dao;
     private static final long serialVersionUID = 1L;
     protected DemandServer() throws RemoteException {
