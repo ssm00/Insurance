@@ -38,6 +38,7 @@ public class Insurance implements Serializable {
 		this.coverageTarget = coverageTarget;
 		this.insuranceFee = insuranceFee;
 		this.authorizeState = authorizeState;
+		this.premiumRate = premiumRate;
 	}
 	public boolean authorize(String connection) throws InvalidInputException, ConnectErrorException, EmptyValueException, IOException {
 		if (connection.equals("1")) {
