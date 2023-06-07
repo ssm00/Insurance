@@ -6,6 +6,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
+import java.rmi.ConnectException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -24,14 +25,41 @@ public class Client {
     ContractIF contractServer;
     SaleIF saleServer;
     public Client() throws MalformedURLException, NotBoundException, RemoteException {
-        insuranceServer = (InsuranceIF) Naming.lookup("//localhost:1010/InsuranceServer");
-        uwServer = (UwIF) Naming.lookup("//localhost:3030/UwServer");
-        compensationServer = (CompensationIF) Naming.lookup("//localhost:2020/CompensationServer");
-        demandServer = (DemandIF) Naming.lookup("//localhost:5050/DemandServer");
-        customerServer = (CustomerIF) Naming.lookup("//localhost:6060/CustomerServer");
-        contractServer = (ContractIF) Naming.lookup("//localhost:8080/ContractServer");
-        saleServer = (SaleIF) Naming.lookup("//localhost:9090/SaleServer");
-
+        try {
+            insuranceServer = (InsuranceIF) Naming.lookup("//localhost:1010/InsuranceServer");
+        } catch (ConnectException e) {
+            System.out.println("보험서버가 연결되지 않았습니다");
+        }
+        try {
+            uwServer = (UwIF) Naming.lookup("//localhost:3030/UwServer");
+        } catch (ConnectException e) {
+            System.out.println("UW 서버가 연결되지 않았습니다");
+        }
+        try {
+            compensationServer = (CompensationIF) Naming.lookup("//localhost:2020/CompensationServer");
+        } catch (ConnectException e) {
+            System.out.println("보상서버가 연결되지 않았습니다");
+        }
+        try {
+            demandServer = (DemandIF) Naming.lookup("//localhost:5050/DemandServer");
+        } catch (ConnectException e) {
+            System.out.println("청구서버가 연결되지 않았습니다");
+        }
+        try {
+            customerServer = (CustomerIF) Naming.lookup("//localhost:6060/CustomerServer");
+        } catch (ConnectException e) {
+            System.out.println("고객서버가 연결되지 않았습니다");
+        }
+        try {
+            contractServer = (ContractIF) Naming.lookup("//localhost:8080/ContractServer");
+        } catch (ConnectException e) {
+            System.out.println("계약서버가 연결되지 않았습니다");
+        }
+        try {
+            saleServer = (SaleIF) Naming.lookup("//localhost:9090/SaleServer");
+        } catch (ConnectException e) {
+            System.out.println("영업서버가 연결되지 않았습니다");
+        }
     }
     public static void main(String[] args) throws NotBoundException, IOException {
         BufferedReader objectReader = new BufferedReader(new InputStreamReader(System.in));
